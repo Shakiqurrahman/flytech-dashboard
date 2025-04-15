@@ -8,7 +8,7 @@ import InboxPage from "../pages/inbox/InboxPage";
 import InstructorsPage from "../pages/instructors/InstructorsPage";
 import LoginPage from "../pages/LoginPage";
 import ReviewPage from "../pages/reviews/ReviewPage";
-import SignInPage from "../pages/SignInPage";
+import SignUpPage from "../pages/SignUpPage";
 import TeamPage from "../pages/team/TeamPage";
 import TestimonialsPage from "../pages/testimonials/TestimonialsPage";
 import MainLayout from "./MainLayout";
@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/sign-up",
-    element: <SignInPage />,
+    element: <SignUpPage />,
   },
   {
     path: "/",
