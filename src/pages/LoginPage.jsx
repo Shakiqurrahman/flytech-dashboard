@@ -31,7 +31,7 @@ const LoginPage = () => {
   return (
     <div className="bg-white h-screen flex flex-col justify-center items-center">
       <img src={flytechLogo} alt="" className="w-25 object-contain mx-auto" />
-      <h1 className="text-center text-2xl sm:text-4xl font-medium mt-5">
+      <h1 className="text-center text-2xl font-semibold mt-5">
         Log in to your account
       </h1>
       <p className="text-gray-500 text-center text-sm pt-2">

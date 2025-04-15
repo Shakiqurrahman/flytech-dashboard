@@ -26,9 +26,7 @@ const SignUpPage = () => {
   return (
     <div className="bg-white h-screen flex flex-col justify-center items-center">
       <img src={flytechLogo} alt="" className="w-25 object-contain mx-auto" />
-      <h1 className="text-center text-2xl sm:text-4xl font-medium mt-5">
-        Sign Up
-      </h1>
+      <h1 className="text-center text-2xl font-semibold mt-5">Sign Up</h1>
       <p className="text-gray-500 text-center text-sm pt-2">
         Welcome! Please enter your details.
       </p>
@@ -88,7 +86,7 @@ const SignUpPage = () => {
           type="submit"
           className="bg-[#282828] text-white hover:bg-primary duration-300 cursor-pointer py-2 rounded-md mt-2"
         >
-          Sign In
+          Sign Up
         </button>
       </form>
 
