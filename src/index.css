@@ -17,3 +17,10 @@
 * {
   font-family: "Poppins", sans-serif;
 }
+
+.active {
+  @apply text-black *:text-primary;
+}
+.active > span {
+  background-image: linear-gradient(to right top, #e7371b, #ff7e69);
+}

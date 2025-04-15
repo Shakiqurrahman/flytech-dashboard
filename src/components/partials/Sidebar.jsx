@@ -60,15 +60,18 @@ const Sidebar = () => {
   ];
   return (
     <div className="w-[240px] flex flex-col shrink-0 h-full bg-secondary rounded-2xl">
-      <div className="shrink-0 flex justify-center h-[90px] items-center">
+      <div className="shrink-0 flex px-5 h-[90px] items-center">
         <img
           src={Logo}
           alt="Flytech IT Logo"
           className="w-[120px] shrink-0 object-contain"
         />
       </div>
-      <div className="h-full">
-        <h1 className="font-medium text-sm p-5 mt-5 text-[#7A7A7A] tracking-wide">
+      <span className="shrink-0 px-5">
+        <hr className="h-px w-full border-gray-300 mt-auto" />
+      </span>
+      <div className="h-full flex flex-col">
+        <h1 className="font-medium text-sm px-5 pt-5 pb-3 text-[#7A7A7A] tracking-wide">
           MENU
         </h1>
         <ul>
@@ -85,10 +88,10 @@ const Sidebar = () => {
             </li>
           ))}
         </ul>
-        <h1 className="font-medium text-sm p-5 mt-5 text-[#7A7A7A] tracking-wide">
+        <h1 className="font-medium text-sm px-5 pt-0 pb-3 text-[#7A7A7A] tracking-wide mt-auto">
           GENERAL
         </h1>
-        <ul>
+        <ul className="pb-5">
           <li>
             <NavLink
               to={"/instructors"}
