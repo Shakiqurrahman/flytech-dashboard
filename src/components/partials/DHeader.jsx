@@ -3,7 +3,7 @@ import Logo from "../../assets/images/flytechBlack.png";
 
 const DHeader = () => {
   return (
-    <div className="shrink-0 bg-[#EAEAEA] rounded-lg w-full flex items-center">
+    <div className="shrink-0 bg-[#F7F7F7] rounded-2xl w-full flex items-center">
       <div className="w-[240px] shrink-0 flex justify-center items-center py-5">
         <img src={Logo} alt="Flytech IT Logo" className="w-[120px]" />
       </div>

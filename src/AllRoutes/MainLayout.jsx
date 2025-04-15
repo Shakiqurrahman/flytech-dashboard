@@ -10,7 +10,7 @@ const MainLayout = () => {
       {/* <Navbar /> */}
       <div className="flex flex-col gap-5 size-full">
         <DHeader />
-        <section className="w-full bg-[#EAEAEA] rounded-lg p-5 h-full shadow-lg overflow-y-auto">
+        <section className="w-full bg-[#F7F7F7] rounded-2xl p-5 h-full overflow-y-auto">
           <Outlet />
         </section>
       </div>
