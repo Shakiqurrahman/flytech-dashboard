@@ -12,7 +12,7 @@ const DHeader = () => {
         <FiSearch className="text-2xl shrink-0 select-none" />
         <input
           type="text"
-          className="w-full outline-none placeholder:text-sm"
+          className="w-full outline-none placeholder:text-sm placeholder:font-medium"
           placeholder="Search task"
         />
         <div className="select-none p-2 bg-secondary flex text-xs items-center font-bold rounded-lg shrink-0">
@@ -39,7 +39,7 @@ const DHeader = () => {
             className="size-[50px] object-cover rounded-full shrink-0"
           />
           <div>
-            <h1 className="font-semibold group-hover:text-primary duration-300">
+            <h1 className="font-medium group-hover:text-primary duration-300">
               Totok Michael
             </h1>
             <p className="text-sm text-[#7A7A7A]">tmichael20@mail.com</p>
