@@ -5,12 +5,12 @@ import Sidebar from "../components/partials/Sidebar";
 
 const MainLayout = () => {
   return (
-    <main className="bg-[#EAEAEA] h-screen w-full flex flex-col">
-      <DHeader />
+    <main className="h-screen w-full flex gap-5 p-5">
+      <Sidebar />
       {/* <Navbar /> */}
-      <div className="flex size-full">
-        <Sidebar />
-        <section className="w-full">
+      <div className="flex flex-col gap-5 size-full">
+        <DHeader />
+        <section className="w-full bg-[#EAEAEA] rounded-lg p-5 h-full shadow-lg overflow-y-auto">
           <Outlet />
         </section>
       </div>
