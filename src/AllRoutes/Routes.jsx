@@ -12,64 +12,74 @@ import SignUpPage from "../pages/SignUpPage";
 import TeamPage from "../pages/team/TeamPage";
 import TestimonialsPage from "../pages/testimonials/TestimonialsPage";
 import MainLayout from "./MainLayout";
+import FaqCreate from "../pages/faq/FaqCreate";
+import Faqupdate from "../pages/faq/Faqupdate";
 
 export const router = createBrowserRouter([
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/sign-up",
-    element: <SignUpPage />,
-  },
-  {
-    path: "/",
-    element: <MainLayout />,
-    children: [
-      {
+    {
+        path: "/login",
+        element: <LoginPage />,
+    },
+    {
+        path: "/sign-up",
+        element: <SignUpPage />,
+    },
+    {
         path: "/",
-        element: <DashboardPage />,
-      },
-      {
-        path: "/courses",
-        element: <CoursePage />,
-      },
-      {
-        path: "/reviews",
-        element: <ReviewPage />,
-      },
-      {
-        path: "/faq",
-        element: <FaqPage />,
-      },
-      {
-        path: "/about",
-        element: <AboutPage />,
-      },
-      {
-        path: "/team",
-        element: <TeamPage />,
-      },
-      {
-        path: "/testimonials",
-        element: <TestimonialsPage />,
-      },
-      {
-        path: "/inbox",
-        element: <InboxPage />,
-      },
-      {
-        path: "/instructors",
-        element: <InstructorsPage />,
-      },
-    ],
-  },
-  {
-    path: "*",
-    element: <ErrorPage />,
-  },
-  {
-    path: "*",
-    element: <ErrorPage />,
-  },
+        element: <MainLayout />,
+        children: [
+            {
+                path: "/",
+                element: <DashboardPage />,
+            },
+            {
+                path: "/courses",
+                element: <CoursePage />,
+            },
+            {
+                path: "/reviews",
+                element: <ReviewPage />,
+            },
+            {
+                path: "/faq",
+                element: <FaqPage />,
+            },
+            {
+                path: "/faq/create",
+                element: <FaqCreate />,
+            },
+            {
+                path: "/faq/edit",
+                element: <Faqupdate />,
+            },
+            {
+                path: "/about",
+                element: <AboutPage />,
+            },
+            {
+                path: "/team",
+                element: <TeamPage />,
+            },
+            {
+                path: "/testimonials",
+                element: <TestimonialsPage />,
+            },
+            {
+                path: "/inbox",
+                element: <InboxPage />,
+            },
+            {
+                path: "/instructors",
+                element: <InstructorsPage />,
+            },
+        ],
+    },
+    {
+        path: "*",
+        element: <ErrorPage />,
+    },
+    {
+        path: "*",
+        element: <ErrorPage />,
+    },
 ]);

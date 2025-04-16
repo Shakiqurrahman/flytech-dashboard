@@ -2,25 +2,30 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #f94c30;
-  --color-secondary: #f7f7f7;
-  --color-grediant: linear-gradient(
-    to right top,
-    #f94c30,
-    #d53a25,
-    #b32819,
-    #91150e,
-    #710000
-  );
+    --color-primary: #f94c30;
+    --color-secondary: #f7f7f7;
+    --color-grediant: linear-gradient(
+        to right top,
+        #f94c30,
+        #d53a25,
+        #b32819,
+        #91150e,
+        #710000
+    );
 }
 
 * {
-  font-family: "Poppins", sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .active {
-  @apply text-black *:text-primary;
+    @apply text-black *:text-primary;
 }
 .active > span {
-  background-image: linear-gradient(to right top, #e7371b, #ff7e69);
+    background-image: linear-gradient(to right top, #e7371b, #ff7e69);
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    display: none;
 }
