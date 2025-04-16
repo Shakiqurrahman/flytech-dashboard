@@ -3,6 +3,7 @@
 
 @theme {
   --color-primary: #f94c30;
+  --color-primary-dark: #c22b13;
   --color-secondary: #f7f7f7;
   --color-grediant: linear-gradient(
     to right top,
