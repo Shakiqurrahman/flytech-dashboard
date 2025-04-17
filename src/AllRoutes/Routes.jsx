@@ -13,7 +13,7 @@ import TeamPage from "../pages/team/TeamPage";
 import TestimonialsPage from "../pages/testimonials/TestimonialsPage";
 import MainLayout from "./MainLayout";
 import FaqCreate from "../pages/faq/FaqCreate";
-import Faqupdate from "../pages/faq/Faqupdate";
+import FaqEdit from "../pages/faq/FaqEdit";
 
 export const router = createBrowserRouter([
     {
@@ -50,7 +50,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/faq/edit",
-                element: <Faqupdate />,
+                element: <FaqEdit />,
             },
             {
                 path: "/about",

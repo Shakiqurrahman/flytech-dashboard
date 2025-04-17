@@ -4,7 +4,7 @@ import { MdOutlineCreate } from "react-icons/md";
 import { Link, useNavigate } from "react-router";
 
 const FaqCreate = () => {
-    const [faqs, setfaqs] = useState([{ question: "hello", answer: "" }]);
+    const [faqs, setfaqs] = useState([{ question: "", answer: "" }]);
     const navigate = useNavigate();
 
     const addItem = () => {

@@ -9,28 +9,28 @@ import { Link } from "react-router";
 const FaqPage = () => {
     const [data, setData] = useState([
         {
-            title: "In elementum est a ante sodales iaculis.",
-            desc: "Morbi porttitor ligula in nunc variussagittis. Proin dui nisi, laoreet ut tempor ac, cursus vitae eros. Cras quis ultricies elit. Proin ac lectus arcu. Maecenas aliquet vel tellus at accumsan. Donec a eros non massa vulputate ornare. Vivamus ornare commodo ante, at commodo felis congue vitae. ",
+            question: "In elementum est a ante sodales iaculis.",
+            answer: "Morbi porttitor ligula in nunc variussagittis. Proin dui nisi, laoreet ut tempor ac, cursus vitae eros. Cras quis ultricies elit. Proin ac lectus arcu. Maecenas aliquet vel tellus at accumsan. Donec a eros non massa vulputate ornare. Vivamus ornare commodo ante, at commodo felis congue vitae. ",
             open: true,
         },
         {
-            title: "Etiam lobortis massa eu nibh tempor elementum.",
-            desc: "Morbi porttitor ligula in nunc variussagittis. Proin dui nisi, laoreet ut tempor ac, cursus vitae eros. Cras quis ultricies elit. Proin ac lectus arcu. Maecenas aliquet vel tellus at accumsan. Donec a eros non massa vulputate ornare. Vivamus ornare commodo ante, at commodo felis congue vitae.",
+            question: "Etiam lobortis massa eu nibh tempor elementum.",
+            answer: "Morbi porttitor ligula in nunc variussagittis. Proin dui nisi, laoreet ut tempor ac, cursus vitae eros. Cras quis ultricies elit. Proin ac lectus arcu. Maecenas aliquet vel tellus at accumsan. Donec a eros non massa vulputate ornare. Vivamus ornare commodo ante, at commodo felis congue vitae.",
             open: false,
         },
         {
-            title: "In elementum est a ante sodales iaculis.",
-            desc: "Morbi porttitor ligula in nunc variussagittis. Proin dui nisi, laoreet ut tempor ac, cursus vitae eros. Cras quis ultricies elit. Proin ac lectus arcu. Maecenas aliquet vel tellus at accumsan. Donec a eros non massa vulputate ornare. Vivamus ornare commodo ante, at commodo felis congue vitae.",
+            question: "In elementum est a ante sodales iaculis.",
+            answer: "Morbi porttitor ligula in nunc variussagittis. Proin dui nisi, laoreet ut tempor ac, cursus vitae eros. Cras quis ultricies elit. Proin ac lectus arcu. Maecenas aliquet vel tellus at accumsan. Donec a eros non massa vulputate ornare. Vivamus ornare commodo ante, at commodo felis congue vitae.",
             open: false,
         },
         {
-            title: "Aenean quis quam nec lacus semper dignissim.",
-            desc: "Morbi porttitor ligula in nunc variussagittis. Proin dui nisi, laoreet ut tempor ac, cursus vitae eros. Cras quis ultricies elit. Proin ac lectus arcu. Maecenas aliquet vel tellus at accumsan. Donec a eros non massa vulputate ornare. Vivamus ornare commodo ante, at commodo felis congue vitae.",
+            question: "Aenean quis quam nec lacus semper dignissim.",
+            answer: "Morbi porttitor ligula in nunc variussagittis. Proin dui nisi, laoreet ut tempor ac, cursus vitae eros. Cras quis ultricies elit. Proin ac lectus arcu. Maecenas aliquet vel tellus at accumsan. Donec a eros non massa vulputate ornare. Vivamus ornare commodo ante, at commodo felis congue vitae.",
             open: false,
         },
         {
-            title: "Nulla tincidunt eros id tempus accumsan.",
-            desc: "Morbi porttitor ligula in nunc variussagittis. Proin dui nisi, laoreet ut tempor ac, cursus vitae eros. Cras quis ultricies elit. Proin ac lectus arcu. Maecenas aliquet vel tellus at accumsan. Donec a eros non massa vulputate ornare. Vivamus ornare commodo ante, at commodo felis congue vitae.",
+            question: "Nulla tincidunt eros id tempus accumsan.",
+            answer: "Morbi porttitor ligula in nunc variussagittis. Proin dui nisi, laoreet ut tempor ac, cursus vitae eros. Cras quis ultricies elit. Proin ac lectus arcu. Maecenas aliquet vel tellus at accumsan. Donec a eros non massa vulputate ornare. Vivamus ornare commodo ante, at commodo felis congue vitae.",
             open: false,
         },
     ]);
@@ -85,7 +85,7 @@ const FaqPage = () => {
                                 value.open ? "border-b border-gray-500" : ""
                             }${value.open ? "border-b border-gray-500" : ""}`}
                         >
-                            <p className="font-medium">{value.title}</p>
+                            <p className="font-medium">{value.question}</p>
                             <button
                                 type="button"
                                 className={`cursor-pointer size-8 ${
@@ -103,7 +103,7 @@ const FaqPage = () => {
                                     : "max-h-0 opacity-0 p-0"
                             } text-[#666666]`}
                         >
-                            {value.desc}
+                            {value.answer}
                         </p>
                     </li>
                 ))}

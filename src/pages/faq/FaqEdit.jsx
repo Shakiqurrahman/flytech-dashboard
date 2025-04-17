@@ -1,29 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPlus, FaTrashAlt } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router";
 
-const Faqupdate = () => {
-    const location = useLocation();
-    console.log(location);
-    const [faqs, setfaqs] = useState([{ question: "hello", answer: "" }]);
+const FaqEdit = () => {
     const navigate = useNavigate();
+    const { state } = useLocation();
+
+    const [faqs, setFaqs] = useState(state || [{ question: "", answer: "" }]);
 
     const addItem = () => {
-        setfaqs((prev) => [...prev, { question: "", answer: "" }]);
+        setFaqs((prev) => [...prev, { question: "", answer: "" }]);
         console.log(faqs);
     };
 
     const deleteItem = (idx) => {
-        setfaqs((prev) => prev.filter((_, i) => i !== idx));
+        setFaqs((prev) => prev.filter((_, i) => i !== idx));
     };
 
     const handleChange = (e, idx) => {
-        setfaqs((prev) =>
+        setFaqs((prev) =>
             prev.map((v, i) =>
                 i === idx ? { ...v, [e.target.name]: e.target.value } : v
             )
         );
     };
+
+    useEffect(() => {
+        console.log(faqs);
+    }, [faqs]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -34,7 +38,7 @@ const Faqupdate = () => {
         <div>
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-semibold">Update Faqs</h1>
+                    <h1 className="text-2xl font-semibold">Edit Faqs</h1>
                 </div>
                 <div className="flex gap-4 items-center">
                     <button
@@ -92,7 +96,7 @@ const Faqupdate = () => {
                         type="submit"
                         className="py-2 px-4 hover:bg-primary text-white duration-300 cursor-pointer rounded-lg border bg-black"
                     >
-                        Create
+                        Update
                     </button>
                 </div>
             </form>
@@ -100,4 +104,4 @@ const Faqupdate = () => {
     );
 };
 
-export default Faqupdate;
+export default FaqEdit;
