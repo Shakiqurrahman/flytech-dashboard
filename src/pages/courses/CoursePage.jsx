@@ -10,6 +10,8 @@ import course6 from "../../assets/images/courses/6.webp";
 import course7 from "../../assets/images/courses/7.webp";
 import course8 from "../../assets/images/courses/8.webp";
 import course9 from "../../assets/images/courses/9.webp";
+import { FiEdit3 } from "react-icons/fi";
+import { GoTrash } from "react-icons/go";
 
 const CoursePage = () => {
     const courses = [
@@ -66,7 +68,21 @@ const CoursePage = () => {
             </div>
             <div className="mt-8 grid grid-cols-4 gap-5 cursor-pointer">
                 {courses?.map((course, i) => (
-                    <div key={i} className="bg-white rounded-lg p-5 group">
+                    <div
+                        key={i}
+                        className="bg-white rounded-lg p-5 group relative overflow-hidden"
+                    >
+                        <div className="absolute right-[12px] top-[12px] flex flex-col gap-2 translate-x-[150%] group-hover:translate-x-0 duration-300">
+                            <Link
+                                to="edit"
+                                className="hover:bg-primary bg-white border border-primary hover:text-white p-2 rounded-lg"
+                            >
+                                <FiEdit3 className="size-4" />
+                            </Link>
+                            <button className="hover:bg-primary bg-white border border-primary hover:text-white p-2 rounded-lg cursor-pointer">
+                                <GoTrash className="size-4" />
+                            </button>
+                        </div>
                         <img
                             src={course.image}
                             alt="Course Thumbnail"
