@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import DragnDrop from "../../lib/DragnDrop";
-import { useNavigate } from "react-router";
 import { FaPlus } from "react-icons/fa";
+import { useNavigate } from "react-router";
+import DragnDrop from "../../lib/DragnDrop";
 
-const TeamEdit = () => {
+const TeamCreate = () => {
     const navigate = useNavigate();
 
     const [teamData, setTeamData] = useState({
@@ -26,7 +26,9 @@ const TeamEdit = () => {
         <div>
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-semibold">Edit Team Member</h1>
+                    <h1 className="text-2xl font-semibold">
+                        Create Team Member
+                    </h1>
                 </div>
                 <div className="flex gap-4 items-center">
                     <button className="flex gap-1 items-center border border-gray-500 py-2 px-4 rounded-md cursor-pointer hover:text-primary hover:border-primary duration-300">
@@ -75,7 +77,7 @@ const TeamEdit = () => {
                         type="submit"
                         className="py-2 px-4 hover:bg-primary text-white duration-300 cursor-pointer rounded-lg border bg-black"
                     >
-                        Update
+                        Create
                     </button>
                 </div>
             </form>
@@ -83,4 +85,4 @@ const TeamEdit = () => {
     );
 };
 
-export default TeamEdit;
+export default TeamCreate;

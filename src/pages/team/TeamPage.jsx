@@ -5,6 +5,7 @@ import img3 from "../../../public/images/cto.webp";
 import { Link } from "react-router";
 import { FiEdit3 } from "react-icons/fi";
 import { GoTrash } from "react-icons/go";
+import { FaPlus } from "react-icons/fa";
 
 const TeamPage = () => {
     const data = [
@@ -50,8 +51,19 @@ const TeamPage = () => {
 
     return (
         <div>
-            <h1 className="text-2xl font-medium">Team</h1>
-
+            <div className="flex items-center justify-between">
+                <div>
+                    <h1 className="text-2xl font-semibold">Edit Faqs</h1>
+                </div>
+                <div className="flex gap-4 items-center">
+                    <Link
+                        to="create"
+                        className="flex gap-1 items-center border border-gray-500 py-2 px-4 rounded-md cursor-pointer hover:text-primary hover:border-primary duration-300"
+                    >
+                        <FaPlus /> Add
+                    </Link>
+                </div>
+            </div>
             <div className="grid grid-cols-4 gap-4 pt-10">
                 {teamData.map((v, i) => (
                     <div
