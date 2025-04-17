@@ -14,6 +14,7 @@ import TestimonialsPage from "../pages/testimonials/TestimonialsPage";
 import MainLayout from "./MainLayout";
 import FaqCreate from "../pages/faq/FaqCreate";
 import FaqEdit from "../pages/faq/FaqEdit";
+import TeamEdit from "../pages/team/TeamEdit";
 
 export const router = createBrowserRouter([
     {
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
             {
                 path: "/team",
                 element: <TeamPage />,
+            },
+            {
+                path: "/team/edit",
+                element: <TeamEdit />,
             },
             {
                 path: "/testimonials",
