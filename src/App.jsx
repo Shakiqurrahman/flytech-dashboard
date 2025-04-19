@@ -1,4 +1,3 @@
-import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router";
 import MainLayout from "./AllRoutes/MainLayout";
@@ -10,7 +9,6 @@ function App() {
     <Provider store={store}>
       <RouterProvider router={router}>
         <MainLayout />
-        <Toaster position="top-center" />
       </RouterProvider>
     </Provider>
   );
