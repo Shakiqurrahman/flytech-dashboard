@@ -17,84 +17,94 @@ import TeamEdit from "../pages/team/TeamEdit";
 import TeamPage from "../pages/team/TeamPage";
 import TestimonialsPage from "../pages/testimonials/TestimonialsPage";
 import MainLayout from "./MainLayout";
+import TestimonialEdit from "../pages/testimonials/TestimonialEdit";
+import TestimonialCreate from "../pages/testimonials/TestimonialCreate";
 
 export const router = createBrowserRouter([
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/sign-up",
-    element: <SignUpPage />,
-  },
-  {
-    path: "/",
-    element: <MainLayout />,
-    children: [
-      {
+    {
+        path: "/login",
+        element: <LoginPage />,
+    },
+    {
+        path: "/sign-up",
+        element: <SignUpPage />,
+    },
+    {
         path: "/",
-        element: <DashboardPage />,
-      },
-      {
-        path: "/courses",
-        element: <CoursePage />,
-      },
-      {
-        path: "/reviews",
-        element: <ReviewPage />,
-      },
-      {
-        path: "/faq",
-        element: <FaqPage />,
-      },
-      {
-        path: "/faq/create",
-        element: <FaqCreate />,
-      },
-      {
-        path: "/faq/edit",
-        element: <FaqEdit />,
-      },
-      {
-        path: "/about",
-        element: <AboutPage />,
-      },
-      {
-        path: "/team",
-        element: <TeamPage />,
-      },
-      {
-        path: "/team/edit",
-        element: <TeamEdit />,
-      },
-      {
-        path: "/team/create",
-        element: <TeamCreate />,
-      },
-      {
-        path: "/testimonials",
-        element: <TestimonialsPage />,
-      },
-      {
-        path: "/inbox",
-        element: <InboxPage />,
-      },
-      {
-        path: "/inbox/read",
-        element: <InboxReadPage />,
-      },
-      {
-        path: "/instructors",
-        element: <InstructorsPage />,
-      },
-    ],
-  },
-  {
-    path: "*",
-    element: <ErrorPage />,
-  },
-  {
-    path: "*",
-    element: <ErrorPage />,
-  },
+        element: <MainLayout />,
+        children: [
+            {
+                path: "/",
+                element: <DashboardPage />,
+            },
+            {
+                path: "/courses",
+                element: <CoursePage />,
+            },
+            {
+                path: "/reviews",
+                element: <ReviewPage />,
+            },
+            {
+                path: "/faq",
+                element: <FaqPage />,
+            },
+            {
+                path: "/faq/create",
+                element: <FaqCreate />,
+            },
+            {
+                path: "/faq/edit",
+                element: <FaqEdit />,
+            },
+            {
+                path: "/about",
+                element: <AboutPage />,
+            },
+            {
+                path: "/team",
+                element: <TeamPage />,
+            },
+            {
+                path: "/team/edit",
+                element: <TeamEdit />,
+            },
+            {
+                path: "/team/create",
+                element: <TeamCreate />,
+            },
+            {
+                path: "/testimonials",
+                element: <TestimonialsPage />,
+            },
+            {
+                path: "/testimonials/create",
+                element: <TestimonialCreate />,
+            },
+            {
+                path: "/testimonials/edit",
+                element: <TestimonialEdit />,
+            },
+            {
+                path: "/inbox",
+                element: <InboxPage />,
+            },
+            {
+                path: "/inbox/read",
+                element: <InboxReadPage />,
+            },
+            {
+                path: "/instructors",
+                element: <InstructorsPage />,
+            },
+        ],
+    },
+    {
+        path: "*",
+        element: <ErrorPage />,
+    },
+    {
+        path: "*",
+        element: <ErrorPage />,
+    },
 ]);
