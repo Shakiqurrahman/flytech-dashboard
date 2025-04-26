@@ -7,53 +7,60 @@ import img1 from "../../../public/images/ceo.webp";
 import img2 from "../../../public/images/coo.webp";
 import img3 from "../../../public/images/cto.webp";
 
-const ReviewPage = () => {
-    const data = [
+const StudentPage = () => {
+    const [studentsData, setStudentsData] = useState([
         {
             name: "Rare Al Samir",
-            position: "Founder & CEO",
-            desck: "Ex-Bangladesh Army, 3 years of Offline Education Business Experience, 5 years of Teaching Experience Finance Graduate",
+            courseName: "Founder & CEO",
+            batchNo: "0001",
+            status: "Running",
             img: img1,
         },
         {
             name: "Jamila Bupasha Khushbu",
-            position: "Co-Founder & COO",
-            desck: "Economics Post Graduate, Ex-BYLC Graduate, 6 years of Experience in Education Sector, Mentored 5000+ students at s@ifurs & two other educational institution, Lead an NGO for 4 years as an Operation Lead",
+            courseName: "Founder & CEO",
+            batchNo: "0001",
+            status: "Running",
             img: img2,
         },
         {
             name: "Tanveer Hossain Munim",
-            position: "CTO",
-            desck: "Software Engineer, 5 years of Teaching Experience to 50,000+ Students",
+            courseName: "Founder & CEO",
+            batchNo: "0001",
+            status: "Running",
             img: img3,
         },
         {
             name: "Rare Al Samir",
-            position: "Founder & CEO",
-            desck: "Ex-Bangladesh Army, 3 years of Offline Education Business Experience, 5 years of Teaching Experience Finance Graduate",
+            courseName: "Founder & CEO",
+            batchNo: "0001",
+            status: "Completed",
             img: img1,
         },
         {
             name: "Jamila Bupasha Khushbu",
-            position: "Co-Founder & COO",
-            desck: "Economics Post Graduate, Ex-BYLC Graduate, 6 years of Experience in Education Sector, Mentored 5000+ students at s@ifurs & two other educational institution, Lead an NGO for 4 years as an Operation Lead",
+            courseName: "Founder & CEO",
+            batchNo: "0001",
+            status: "Running",
             img: img2,
         },
         {
             name: "Tanveer Hossain Munim",
-            position: "CTO",
-            desck: "Software Engineer, 5 years of Teaching Experience to 50,000+ Students",
+            courseName: "Founder & CEO",
+            batchNo: "0001",
+            status: "Completed",
             img: img3,
         },
-    ];
+    ]);
 
-    const [teamData, setTeamData] = useState(data);
     return (
         <div>
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-semibold">Reviews</h1>
-                    <p className="text-sm">Display all the review list.</p>
+                    <h1 className="text-2xl font-semibold">Our Students</h1>
+                    <p className="text-sm">
+                        Displaying all the students of our It.
+                    </p>
                 </div>
                 <div className="flex gap-4 items-center">
                     <Link
@@ -64,16 +71,16 @@ const ReviewPage = () => {
                     </Link>
                 </div>
             </div>
-            <div className="grid grid-cols-3 gap-4 pt-10">
-                {teamData.map((v, i) => (
+            <div className="grid grid-cols-4 gap-4 pt-10">
+                {studentsData.map((v, i) => (
                     <div
-                        className="bg-white rounded-md p-4 cursor-pointer relative  overflow-hidden group"
+                        className="flex items-center flex-col text-center bg-white rounded-md px-2 py-4 border border-gray-200 cursor-pointer relative  overflow-hidden group"
                         key={i}
                     >
                         <div className="absolute right-[12px] top-[12px] flex flex-col gap-2 translate-x-[150%] group-hover:translate-x-0 duration-300">
                             <Link
-                                to="edit"
                                 state={v}
+                                to="edit"
                                 className="hover:bg-primary border border-primary hover:text-white p-2 rounded-lg"
                             >
                                 <FiEdit3 className="size-4" />
@@ -82,15 +89,25 @@ const ReviewPage = () => {
                                 <GoTrash className="size-4" />
                             </button>
                         </div>
-                        <div className="flex gap-2 items-center">
-                            <img
-                                src={v.img}
-                                alt=""
-                                className="size-10 object-contain rounded-full cursor-pointer"
-                            />
-                            <h3 className=" font-medium">{v.name}</h3>
-                        </div>
-                        <p className="mt-2 text-sm text-gray-500">{v.desck}</p>
+                        <img
+                            src={v.img}
+                            alt=""
+                            className="size-40 object-contain rounded-full cursor-pointer"
+                        />
+                        <h3 className="text-xl font-semibold mt-4">{v.name}</h3>
+                        <p className="mt-1 text-gray-500 ">{v.courseName}</p>
+                        <p className="font-medium  text-xs text-gray-500">
+                            Batch: {v.batchNo}
+                        </p>
+                        <p
+                            className={`font-medium ${
+                                v.status === "Completed"
+                                    ? "text-black"
+                                    : "text-primary"
+                            } text-sm`}
+                        >
+                            {v.status}
+                        </p>
                     </div>
                 ))}
             </div>
@@ -98,4 +115,4 @@ const ReviewPage = () => {
     );
 };
 
-export default ReviewPage;
+export default StudentPage;

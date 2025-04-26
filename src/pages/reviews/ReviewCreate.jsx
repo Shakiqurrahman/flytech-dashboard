@@ -1,57 +1,46 @@
 import React, { useState } from "react";
-import { FaPlus } from "react-icons/fa";
-import { useNavigate } from "react-router";
 import DragnDrop from "../../lib/DragnDrop";
+import { useNavigate } from "react-router";
+import { FaPlus } from "react-icons/fa";
 
-const TeamCreate = () => {
+const ReviewCreate = () => {
     const navigate = useNavigate();
 
-    const [teamData, setTeamData] = useState({
+    const [data, setData] = useState({
         name: "",
-        title: "",
         desc: "",
         img: "",
     });
 
     const handleChange = (e) => {
-        setTeamData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(teamData);
+        console.log(data);
     };
 
     return (
         <div>
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-semibold">
-                        Create Team Member
-                    </h1>
+                    <h1 className="text-2xl font-semibold">Create Review</h1>
                 </div>
             </div>
 
             <form className="mt-5" onSubmit={handleSubmit}>
                 <div className="flex flex-col space-y-4">
                     <input
-                        value={teamData.name}
+                        value={data.name}
                         name="name"
                         onChange={handleChange}
                         type="text"
                         placeholder="Enter name"
                         className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
                     />
-                    <input
-                        value={teamData.title}
-                        name="title"
-                        onChange={handleChange}
-                        type="text"
-                        placeholder="Enter Title"
-                        className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
-                    />
                     <textarea
-                        value={teamData.desc}
+                        value={data.desc}
                         name="desc"
                         onChange={handleChange}
                         placeholder="Enter Description..."
@@ -80,4 +69,4 @@ const TeamCreate = () => {
     );
 };
 
-export default TeamCreate;
+export default ReviewCreate;

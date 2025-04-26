@@ -19,6 +19,11 @@ import TestimonialsPage from "../pages/testimonials/TestimonialsPage";
 import MainLayout from "./MainLayout";
 import TestimonialEdit from "../pages/testimonials/TestimonialEdit";
 import TestimonialCreate from "../pages/testimonials/TestimonialCreate";
+import StudentPage from "../pages/students/StudentPage";
+import StudentEdit from "../pages/students/StudentEdit";
+import StudentCreate from "../pages/students/StudentCreate";
+import ReviewCreate from "../pages/reviews/ReviewCreate";
+import ReviewEdit from "../pages/reviews/reviewEdit";
 
 export const router = createBrowserRouter([
     {
@@ -44,6 +49,14 @@ export const router = createBrowserRouter([
             {
                 path: "/reviews",
                 element: <ReviewPage />,
+            },
+            {
+                path: "/reviews/create",
+                element: <ReviewCreate />,
+            },
+            {
+                path: "/reviews/edit",
+                element: <ReviewEdit />,
             },
             {
                 path: "/faq",
@@ -72,6 +85,18 @@ export const router = createBrowserRouter([
             {
                 path: "/team/create",
                 element: <TeamCreate />,
+            },
+            {
+                path: "/students",
+                element: <StudentPage />,
+            },
+            {
+                path: "/students/edit",
+                element: <StudentEdit />,
+            },
+            {
+                path: "/students/create",
+                element: <StudentCreate />,
             },
             {
                 path: "/testimonials",

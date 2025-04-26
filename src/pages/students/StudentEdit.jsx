@@ -1,17 +1,20 @@
 import React, { useState } from "react";
-import { FaPlus } from "react-icons/fa";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import DragnDrop from "../../lib/DragnDrop";
 
-const TeamCreate = () => {
+const StudentEdit = () => {
     const navigate = useNavigate();
+    const { state } = useLocation();
 
-    const [teamData, setTeamData] = useState({
-        name: "",
-        title: "",
-        desc: "",
-        img: "",
-    });
+    const [teamData, setTeamData] = useState(
+        state || {
+            name: "",
+            courseName: "",
+            batchNo: "",
+            img: "",
+            status: "Running",
+        }
+    );
 
     const handleChange = (e) => {
         setTeamData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -21,14 +24,11 @@ const TeamCreate = () => {
         e.preventDefault();
         console.log(teamData);
     };
-
     return (
         <div>
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-semibold">
-                        Create Team Member
-                    </h1>
+                    <h1 className="text-2xl font-semibold">Edit A Student</h1>
                 </div>
             </div>
 
@@ -43,20 +43,32 @@ const TeamCreate = () => {
                         className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
                     />
                     <input
-                        value={teamData.title}
-                        name="title"
+                        value={teamData.courseName}
+                        name="courseName"
                         onChange={handleChange}
                         type="text"
-                        placeholder="Enter Title"
+                        placeholder="Enter Course Name"
                         className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
                     />
-                    <textarea
-                        value={teamData.desc}
-                        name="desc"
-                        onChange={handleChange}
-                        placeholder="Enter Description..."
-                        className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
-                    ></textarea>
+                    <div className="flex gap-4">
+                        <input
+                            value={teamData.batchNo}
+                            name="batchNo"
+                            onChange={handleChange}
+                            type="text"
+                            placeholder="Enter Batch No"
+                            className="px-4 py-2 rounded-lg outline-0 border border-gray-300 w-full"
+                        />
+                        <select
+                            name="status"
+                            value={teamData.status}
+                            onChange={handleChange}
+                            className="px-4 py-2 rounded-lg outline-0 border border-gray-300 w-full"
+                        >
+                            <option value="Running">Running</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
                 </div>
                 <DragnDrop />
 
@@ -72,7 +84,7 @@ const TeamCreate = () => {
                         type="submit"
                         className="py-2 px-4 hover:bg-primary text-white duration-300 cursor-pointer rounded-lg border bg-black"
                     >
-                        Create
+                        Update
                     </button>
                 </div>
             </form>
@@ -80,4 +92,4 @@ const TeamCreate = () => {
     );
 };
 
-export default TeamCreate;
+export default StudentEdit;
