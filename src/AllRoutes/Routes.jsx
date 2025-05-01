@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import AboutPage from "../pages/about/AboutPage";
+import ApplicationsPage from "../pages/applications/ApplicationsPage";
 import CoursePage from "../pages/courses/CoursePage";
 import DashboardPage from "../pages/DashboardPage";
 import ErrorPage from "../pages/ErrorPage";
@@ -112,6 +113,10 @@ export const router = createBrowserRouter([
       {
         path: "/success-students/create",
         element: <SuccessStudentCreate />,
+      },
+      {
+        path: "/applications",
+        element: <ApplicationsPage />,
       },
       {
         path: "/testimonials",

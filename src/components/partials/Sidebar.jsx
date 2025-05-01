@@ -6,7 +6,7 @@ import {
   BsMortarboardFill,
   BsPeopleFill,
 } from "react-icons/bs";
-import { FaChalkboardTeacher, FaEnvelope } from "react-icons/fa";
+import { FaChalkboardTeacher, FaEnvelope, FaUserEdit } from "react-icons/fa";
 import { GiAchievement } from "react-icons/gi";
 import { MdStars } from "react-icons/md";
 import { PiSignOutBold, PiStudentFill } from "react-icons/pi";
@@ -57,6 +57,11 @@ const Sidebar = () => {
       name: "Success Students",
       link: "/success-students",
       icon: <GiAchievement className="text-xl group-hover:text-primary" />,
+    },
+    {
+      name: "Applications",
+      link: "/applications",
+      icon: <FaUserEdit className="text-xl group-hover:text-primary" />,
     },
     {
       name: "Testimonials",
