@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FaTimes } from "react-icons/fa";
 
-function DragnDrop({ setForm }) {
+function DragnDrop({ setForm, className }) {
     const [preview, setPreview] = useState(null);
     // console.log(preview);
 
@@ -35,7 +35,11 @@ function DragnDrop({ setForm }) {
     };
 
     return (
-        <section className="w-full flex flex-col items-center pt-5">
+        <section
+            className={`w-full flex flex-col items-center ${
+                className ? className : "pt-5"
+            } `}
+        >
             {!preview ? (
                 <div
                     {...getRootProps()}

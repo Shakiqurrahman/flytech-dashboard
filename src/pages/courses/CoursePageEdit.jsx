@@ -6,6 +6,8 @@ const CoursePageEdit = () => {
     const navigate = useNavigate();
     const [data, setData] = useState({
         name: "",
+        icon: "",
+        slug: "",
         title: "",
         img: "",
     });
@@ -30,13 +32,12 @@ const CoursePageEdit = () => {
 
             <form className="mt-5" onSubmit={handleSubmit}>
                 <div className="flex flex-col space-y-4">
-                    <DragnDrop />
                     <input
                         value={data.name}
                         name="name"
                         onChange={handleChange}
                         type="text"
-                        placeholder="Enter Title"
+                        placeholder="Enter Course Name"
                         className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
                     />
                 </div>
