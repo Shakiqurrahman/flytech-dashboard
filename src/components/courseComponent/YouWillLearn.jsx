@@ -1,26 +1,26 @@
 import React from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-const YouWillGet = ({ youWillGet, setYouWillGet }) => {
+const YouWillLearn = ({ youWillLearn, setYouWillLearn }) => {
     const handleAddOption = () => {
-        setYouWillGet([...youWillGet, ""]);
+        setYouWillLearn([...youWillLearn, ""]);
     };
 
     const handleChange = (index, value) => {
-        const upatedOption = [...youWillGet];
+        const upatedOption = [...youWillLearn];
         upatedOption[index] = value;
-        setYouWillGet(upatedOption);
+        setYouWillLearn(upatedOption);
     };
 
     const handleRemove = (index) => {
-        const updatedOption = youWillGet.filter((_, i) => i !== index);
-        setYouWillGet(updatedOption);
+        const updatedOption = youWillLearn.filter((_, i) => i !== index);
+        setYouWillLearn(updatedOption);
     };
 
     return (
         <div>
             <div className="flex justify-between items-center mb-2">
-                <p className="text-gray-500">You Will Get</p>
+                <p className="text-gray-500">You Will Learn</p>
                 <p
                     className="border border-gray-300 rounded-md px-2 p-1 cursor-pointer hover:bg-gray-700 hover:text-white duration-300"
                     onClick={handleAddOption}
@@ -29,7 +29,7 @@ const YouWillGet = ({ youWillGet, setYouWillGet }) => {
                 </p>
             </div>
             <div className="space-y-2">
-                {youWillGet.map((v, i) => (
+                {youWillLearn.map((v, i) => (
                     <div key={i} className="flex gap-2">
                         <input
                             type="text"
@@ -51,4 +51,4 @@ const YouWillGet = ({ youWillGet, setYouWillGet }) => {
     );
 };
 
-export default YouWillGet;
+export default YouWillLearn;

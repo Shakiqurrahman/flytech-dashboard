@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import DragnDrop from "../../lib/DragnDrop";
 import YouWillGet from "../../components/courseComponent/YouWillGet";
+import YouWillLearn from "../../components/courseComponent/YouWillLearn";
+import Community from "../../components/courseComponent/Community";
+import ForWhom from "../../components/courseComponent/ForWhom";
 
 const CoursePageCreate = () => {
     const navigate = useNavigate();
@@ -22,7 +25,13 @@ const CoursePageCreate = () => {
         img: "",
         discount: "",
     });
-    const [youWillGet, setYouWillGet] = useState(['']);
+    const [youWillGet, setYouWillGet] = useState([""]);
+    const [youWillLearn, setYouWillLearn] = useState([""]);
+    const [forWhom, setForWhom] = useState([""]);
+    const [community, setCommunity] = useState([
+        { title: "", linkTitle: "", link: "" },
+        { title: "", linkTitle: "", link: "" },
+    ]);
 
     const handleChange = (e) => {
         setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -160,6 +169,43 @@ const CoursePageCreate = () => {
                         youWillGet={youWillGet}
                         setYouWillGet={setYouWillGet}
                     />
+                    <input
+                        value={data.hoursOfLesson}
+                        name="hoursOfLesson"
+                        onChange={handleChange}
+                        type="text"
+                        placeholder="Hours of lessons"
+                        className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
+                    />
+
+                    <input
+                        value={data.totalLesson}
+                        name="totalLesson"
+                        onChange={handleChange}
+                        type="text"
+                        placeholder="Total lessons"
+                        className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
+                    />
+                    <input
+                        value={data.duration}
+                        name="duration"
+                        onChange={handleChange}
+                        type="text"
+                        placeholder="Duration"
+                        className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
+                    />
+
+                    <YouWillLearn
+                        youWillLearn={youWillLearn}
+                        setYouWillLearn={setYouWillLearn}
+                    />
+
+                    <Community
+                        community={community}
+                        setCommunity={setCommunity}
+                    />
+
+                    <ForWhom forWhom={forWhom} setForWhom={setForWhom} />
                 </div>
 
                 <div className="mt-5 flex gap-2 justify-between">
