@@ -13,8 +13,10 @@ const YouWillLearn = ({ youWillLearn, setYouWillLearn }) => {
     };
 
     const handleRemove = (index) => {
-        const updatedOption = youWillLearn.filter((_, i) => i !== index);
-        setYouWillLearn(updatedOption);
+        if (index > 0) {
+            const updatedOption = youWillLearn.filter((_, i) => i !== index);
+            setYouWillLearn(updatedOption);
+        }
     };
 
     return (

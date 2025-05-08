@@ -13,8 +13,10 @@ const YouWillGet = ({ youWillGet, setYouWillGet }) => {
     };
 
     const handleRemove = (index) => {
-        const updatedOption = youWillGet.filter((_, i) => i !== index);
-        setYouWillGet(updatedOption);
+        if (index > 0) {
+            const updatedOption = youWillGet.filter((_, i) => i !== index);
+            setYouWillGet(updatedOption);
+        }
     };
 
     return (

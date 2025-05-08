@@ -5,6 +5,7 @@ import YouWillGet from "../../components/courseComponent/YouWillGet";
 import YouWillLearn from "../../components/courseComponent/YouWillLearn";
 import Community from "../../components/courseComponent/Community";
 import ForWhom from "../../components/courseComponent/ForWhom";
+import CourseFaq from "../../components/courseComponent/CourseFaq";
 
 const CoursePageCreate = () => {
     const navigate = useNavigate();
@@ -32,6 +33,7 @@ const CoursePageCreate = () => {
         { title: "", linkTitle: "", link: "" },
         { title: "", linkTitle: "", link: "" },
     ]);
+    const [courseFaq, setCourseFaq] = useState([{ question: "", answer: "" }]);
 
     const handleChange = (e) => {
         setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -43,7 +45,14 @@ const CoursePageCreate = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(setData);
+        console.log({
+            ...data,
+            youWillGet,
+            youWillLearn,
+            forWhom,
+            community,
+            courseFaq,
+        });
     };
     return (
         <div>
@@ -102,7 +111,10 @@ const CoursePageCreate = () => {
                         onChange={handleChange}
                         type="text"
                         placeholder="Enter Course Fee"
-                        className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
+                        disabled={!data.isOffer}
+                        className={`px-4 py-2 rounded-lg outline-0 border border-gray-300 ${
+                            !data.isOffer ? "bg-gray-200" : ""
+                        }`}
                     />
 
                     <input
@@ -120,7 +132,10 @@ const CoursePageCreate = () => {
                         onChange={handleChange}
                         type="text"
                         placeholder="Enter Discount Rate"
-                        className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
+                        disabled={!data.isOffer}
+                        className={`px-4 py-2 rounded-lg outline-0 border border-gray-300 ${
+                            !data.isOffer ? "bg-gray-200" : ""
+                        }`}
                     />
 
                     <div className="flex items-center gap-2">
@@ -206,6 +221,10 @@ const CoursePageCreate = () => {
                     />
 
                     <ForWhom forWhom={forWhom} setForWhom={setForWhom} />
+                    <CourseFaq
+                        courseFaq={courseFaq}
+                        setCourseFaq={setCourseFaq}
+                    />
                 </div>
 
                 <div className="mt-5 flex gap-2 justify-between">
