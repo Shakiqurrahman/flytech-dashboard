@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router";
 import AboutPage from "../pages/about/AboutPage";
 import ApplicationsPage from "../pages/applications/ApplicationsPage";
 import CoursePage from "../pages/courses/CoursePage";
+import CoursePageCreate from "../pages/courses/CoursePageCreate";
+import CoursePageEdit from "../pages/courses/CoursePageEdit";
 import DashboardPage from "../pages/DashboardPage";
 import ErrorPage from "../pages/ErrorPage";
 import FaqCreate from "../pages/faq/FaqCreate";
@@ -28,138 +30,136 @@ import TestimonialCreate from "../pages/testimonials/TestimonialCreate";
 import TestimonialEdit from "../pages/testimonials/TestimonialEdit";
 import TestimonialsPage from "../pages/testimonials/TestimonialsPage";
 import MainLayout from "./MainLayout";
-import CoursePageCreate from "../pages/courses/CoursePageCreate";
-import CoursePageEdit from "../pages/courses/CoursePageEdit";
 
 export const router = createBrowserRouter([
-    {
-        path: "/login",
-        element: <LoginPage />,
-    },
-    {
-        path: "/sign-up",
-        element: <SignUpPage />,
-    },
-    {
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/sign-up",
+    element: <SignUpPage />,
+  },
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      {
         path: "/",
-        element: <MainLayout />,
-        children: [
-            {
-                path: "/",
-                element: <DashboardPage />,
-            },
-            {
-                path: "/courses",
-                element: <CoursePage />,
-            },
-            {
-                path: "/courses/create",
-                element: <CoursePageCreate />,
-            },
-            {
-                path: "/courses/edit",
-                element: <CoursePageEdit />,
-            },
-            {
-                path: "/reviews",
-                element: <ReviewPage />,
-            },
-            {
-                path: "/reviews/create",
-                element: <ReviewCreate />,
-            },
-            {
-                path: "/reviews/edit",
-                element: <ReviewEdit />,
-            },
-            {
-                path: "/faq",
-                element: <FaqPage />,
-            },
-            {
-                path: "/faq/create",
-                element: <FaqCreate />,
-            },
-            {
-                path: "/faq/edit",
-                element: <FaqEdit />,
-            },
-            {
-                path: "/about",
-                element: <AboutPage />,
-            },
-            {
-                path: "/team",
-                element: <TeamPage />,
-            },
-            {
-                path: "/team/edit",
-                element: <TeamEdit />,
-            },
-            {
-                path: "/team/create",
-                element: <TeamCreate />,
-            },
-            {
-                path: "/students",
-                element: <StudentPage />,
-            },
-            {
-                path: "/students/edit",
-                element: <StudentEdit />,
-            },
-            {
-                path: "/students/create",
-                element: <StudentCreate />,
-            },
-            {
-                path: "/success-students",
-                element: <SuccessStudentsPage />,
-            },
-            {
-                path: "/success-students/edit",
-                element: <SuccessStudentEdit />,
-            },
-            {
-                path: "/success-students/create",
-                element: <SuccessStudentCreate />,
-            },
-            {
-                path: "/applications",
-                element: <ApplicationsPage />,
-            },
-            {
-                path: "/testimonials",
-                element: <TestimonialsPage />,
-            },
-            {
-                path: "/testimonials/create",
-                element: <TestimonialCreate />,
-            },
-            {
-                path: "/testimonials/edit",
-                element: <TestimonialEdit />,
-            },
-            {
-                path: "/inbox",
-                element: <InboxPage />,
-            },
-            {
-                path: "/inbox/read",
-                element: <InboxReadPage />,
-            },
-            {
-                path: "/instructors",
-                element: <InstructorsPage />,
-            },
-        ],
-    },
-    {
-        path: "*",
-        element: <ErrorPage />,
-    },
-    {
-        path: "*",
-        element: <ErrorPage />,
-    },
+        element: <DashboardPage />,
+      },
+      {
+        path: "/courses",
+        element: <CoursePage />,
+      },
+      {
+        path: "/courses/create",
+        element: <CoursePageCreate />,
+      },
+      {
+        path: "/courses/edit",
+        element: <CoursePageEdit />,
+      },
+      {
+        path: "/reviews",
+        element: <ReviewPage />,
+      },
+      {
+        path: "/reviews/create",
+        element: <ReviewCreate />,
+      },
+      {
+        path: "/reviews/edit",
+        element: <ReviewEdit />,
+      },
+      {
+        path: "/faq",
+        element: <FaqPage />,
+      },
+      {
+        path: "/faq/create",
+        element: <FaqCreate />,
+      },
+      {
+        path: "/faq/edit",
+        element: <FaqEdit />,
+      },
+      {
+        path: "/about",
+        element: <AboutPage />,
+      },
+      {
+        path: "/team",
+        element: <TeamPage />,
+      },
+      {
+        path: "/team/edit",
+        element: <TeamEdit />,
+      },
+      {
+        path: "/team/create",
+        element: <TeamCreate />,
+      },
+      {
+        path: "/students",
+        element: <StudentPage />,
+      },
+      {
+        path: "/students/edit",
+        element: <StudentEdit />,
+      },
+      {
+        path: "/students/create",
+        element: <StudentCreate />,
+      },
+      {
+        path: "/success-students",
+        element: <SuccessStudentsPage />,
+      },
+      {
+        path: "/success-students/edit",
+        element: <SuccessStudentEdit />,
+      },
+      {
+        path: "/success-students/create",
+        element: <SuccessStudentCreate />,
+      },
+      {
+        path: "/applications",
+        element: <ApplicationsPage />,
+      },
+      {
+        path: "/testimonials",
+        element: <TestimonialsPage />,
+      },
+      {
+        path: "/testimonials/create",
+        element: <TestimonialCreate />,
+      },
+      {
+        path: "/testimonials/edit",
+        element: <TestimonialEdit />,
+      },
+      {
+        path: "/inbox",
+        element: <InboxPage />,
+      },
+      {
+        path: "/inbox/read",
+        element: <InboxReadPage />,
+      },
+      {
+        path: "/instructors",
+        element: <InstructorsPage />,
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
+  },
 ]);
