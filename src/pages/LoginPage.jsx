@@ -1,8 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router";
 import flytechLogo from "../assets/images/flytechBlack.png";
+import { useLoginMutation } from "../Redux/features/auth/authApi";
+import { setToken } from "../Redux/features/auth/authSlice";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [login, { isLoading }] = useLoginMutation();
+
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
@@ -23,9 +31,17 @@ const LoginPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formValue);
+
+    try {
+      const response = await login(formValue).unwrap();
+      navigate("/");
+      dispatch(setToken(response?.data?.accessToken));
+      console.log("🚀 ~ handleSubmit ~ response:", response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -83,9 +99,10 @@ const LoginPage = () => {
 
         <button
           type="submit"
-          className="bg-[#282828] text-white hover:bg-primary duration-300 cursor-pointer py-2 rounded-md mt-2"
+          disabled={isLoading}
+          className="bg-[#282828] text-white hover:bg-primary duration-300 cursor-pointer py-2 rounded-md mt-2  disabled:opacity-60"
         >
-          Sign In
+          {isLoading ? "Loading..." : "Sign In"}
         </button>
       </form>
 
