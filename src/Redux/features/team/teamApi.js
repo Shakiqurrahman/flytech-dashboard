@@ -6,13 +6,12 @@ export const teamApiSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: config.apiUrl }),
     endpoints: (builder) => ({
         getTeamMembers: builder.query({
-            query: () => "/about/team-members",
+            query: () => "/about/team-members/admin",
             transformResponse: (response) => response.data, // only return the data array
             providesTags: ["Team"],
         }),
         createTeamMember: builder.mutation({
             query: ({ memberData, avatarFile }) => {
-                console.log("kene par na --> ", avatarFile);
                 const formData = new FormData();
                 formData.append("data", JSON.stringify(memberData));
                 if (avatarFile) {
@@ -27,8 +26,19 @@ export const teamApiSlice = createApi({
             },
             invalidatesTags: ["Team"],
         }),
+        deleteTeamMember: builder.mutation({
+            query: (id) => ({
+                url: `/about/team-members/${id}/status`,
+                method: "PATCH",
+                body: { status: "DELETED" },
+            }),
+            invalidatesTags: ["Team"],
+        }),
     }),
 });
 
-export const { useGetTeamMembersQuery, useCreateTeamMemberMutation } =
-    teamApiSlice;
+export const {
+    useGetTeamMembersQuery,
+    useCreateTeamMemberMutation,
+    useDeleteTeamMemberMutation,
+} = teamApiSlice;

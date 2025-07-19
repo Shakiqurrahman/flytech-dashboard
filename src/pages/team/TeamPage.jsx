@@ -1,54 +1,24 @@
+import toast from "react-hot-toast";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FaPlus } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
 import { GoTrash } from "react-icons/go";
 import { Link } from "react-router";
-import { useGetTeamMembersQuery } from "../../Redux/features/team/teamApi";
+import {
+    useDeleteTeamMemberMutation,
+    useGetTeamMembersQuery,
+} from "../../Redux/features/team/teamApi";
 
 const TeamPage = () => {
     const { data, isLoading } = useGetTeamMembersQuery();
-
+    const [deleteTeamMember, { isLoading: isDeleting }] =
+        useDeleteTeamMemberMutation();
     console.log(data);
 
-    // const data = [
-    //     {
-    //         name: "Rare Al Samir",
-    //         position: "Founder & CEO",
-    //         desck: "Ex-Bangladesh Army, 3 years of Offline Education Business Experience, 5 years of Teaching Experience Finance Graduate",
-    //         img: img1,
-    //     },
-    //     {
-    //         name: "Jamila Bupasha Khushbu",
-    //         position: "Co-Founder & COO",
-    //         desck: "Economics Post Graduate, Ex-BYLC Graduate, 6 years of Experience in Education Sector, Mentored 5000+ students at s@ifurs & two other educational institution, Lead an NGO for 4 years as an Operation Lead",
-    //         img: img2,
-    //     },
-    //     {
-    //         name: "Tanveer Hossain Munim",
-    //         position: "CTO",
-    //         desck: "Software Engineer, 5 years of Teaching Experience to 50,000+ Students",
-    //         img: img3,
-    //     },
-    //     {
-    //         name: "Rare Al Samir",
-    //         position: "Founder & CEO",
-    //         desck: "Ex-Bangladesh Army, 3 years of Offline Education Business Experience, 5 years of Teaching Experience Finance Graduate",
-    //         img: img1,
-    //     },
-    //     {
-    //         name: "Jamila Bupasha Khushbu",
-    //         position: "Co-Founder & COO",
-    //         desck: "Economics Post Graduate, Ex-BYLC Graduate, 6 years of Experience in Education Sector, Mentored 5000+ students at s@ifurs & two other educational institution, Lead an NGO for 4 years as an Operation Lead",
-    //         img: img2,
-    //     },
-    //     {
-    //         name: "Tanveer Hossain Munim",
-    //         position: "CTO",
-    //         desck: "Software Engineer, 5 years of Teaching Experience to 50,000+ Students",
-    //         img: img3,
-    //     },
-    // ];
-
-    // const [teamData, setTeamData] = useState(data);
+    const handleDelete = async (id) => {
+        await deleteTeamMember(id);
+        toast.success("Team Member deleted Successfully!");
+    };
 
     return (
         <div>
@@ -86,8 +56,15 @@ const TeamPage = () => {
                                 >
                                     <FiEdit3 className="size-4" />
                                 </Link>
-                                <button className="hover:bg-primary border border-primary hover:text-white p-2 rounded-lg cursor-pointer">
-                                    <GoTrash className="size-4" />
+                                <button
+                                    className="hover:bg-primary border border-primary hover:text-white p-2 rounded-lg cursor-pointer"
+                                    onClick={() => handleDelete(v.id)}
+                                >
+                                    {isDeleting ? (
+                                        <AiOutlineLoading3Quarters className="size-4 animate-spin duration-300 text-red-500 hover:text-white" />
+                                    ) : (
+                                        <GoTrash className="size-4" />
+                                    )}
                                 </button>
                             </div>
                             <img
@@ -99,10 +76,24 @@ const TeamPage = () => {
                                 {v.name}
                             </h3>
                             <p className="font-medium text-primary">
-                                {v.position}
+                                {v.title}
                             </p>
-                            <p className="mt-1 text-xs text-gray-500">
-                                {v.desck}
+                            <p
+                                className="mt-1 text-xs text-gray-500 truncate whitespace-nowrap w-full overflow-hidden"
+                                title={v.description}
+                            >
+                                {v.description}
+                            </p>
+
+                            <p
+                                className={`mt-3 text-sm text-gray-500 ${
+                                    v.status === "ACTIVE"
+                                        ? "text-green-500 bg-green-100 py-2 px-4 rounded-lg"
+                                        : "text-red-500 bg-red-100 py-2 px-4 rounded-lg"
+                                }`}
+                            >
+                                {v.status.charAt(0).toUpperCase() +
+                                    v.status.slice(1).toLowerCase()}
                             </p>
                         </div>
                     ))
