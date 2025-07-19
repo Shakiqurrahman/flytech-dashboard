@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FaTimes } from "react-icons/fa";
 
-function DragnDrop({ setForm, className }) {
+function DragnDrop({ setAvatar, className }) {
     const [preview, setPreview] = useState(null);
     // console.log(preview);
 
@@ -18,6 +18,9 @@ function DragnDrop({ setForm, className }) {
             if (file) {
                 const previewUrl = URL.createObjectURL(file);
                 setPreview({ file, url: previewUrl });
+
+                // Set avatar in parent
+                setAvatar(file);
             }
         },
     });
@@ -32,6 +35,7 @@ function DragnDrop({ setForm, className }) {
     const removeImage = () => {
         if (preview?.url) URL.revokeObjectURL(preview.url);
         setPreview(null);
+        setAvatar(null); // remove from parent too
     };
 
     return (

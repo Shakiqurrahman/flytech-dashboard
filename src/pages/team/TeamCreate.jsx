@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { FaPlus } from "react-icons/fa";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import DragnDrop from "../../lib/DragnDrop";
+import { useCreateTeamMemberMutation } from "../../Redux/features/team/teamApi";
 
 const TeamCreate = () => {
     const navigate = useNavigate();
@@ -13,13 +14,36 @@ const TeamCreate = () => {
         img: "",
     });
 
+    const [avatar, setAvatar] = useState(null);
+    console.log(avatar);
+
+    const [createTeamMember, { isLoading }] = useCreateTeamMemberMutation();
+
     const handleChange = (e) => {
         setTeamData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(teamData);
+
+        const memberData = {
+            name: teamData.name,
+            title: teamData.title,
+            description: teamData.desc,
+        };
+
+        try {
+            await createTeamMember({
+                memberData,
+                avatarFile: avatar,
+            });
+
+            navigate("/team");
+            toast.success("Team Member created Successfully");
+        } catch (error) {
+            console.error(error);
+            toast.error("Something went wrong!");
+        }
     };
 
     return (
@@ -58,7 +82,7 @@ const TeamCreate = () => {
                         className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
                     ></textarea>
                 </div>
-                <DragnDrop />
+                <DragnDrop setAvatar={setAvatar} />
 
                 <div className="mt-5 flex gap-2 justify-between">
                     <button
@@ -70,9 +94,10 @@ const TeamCreate = () => {
                     </button>
                     <button
                         type="submit"
-                        className="py-2 px-4 hover:bg-primary text-white duration-300 cursor-pointer rounded-lg border bg-black"
+                        className="py-2 px-4 hover:bg-primary disabled:bg-orange-300 text-white duration-300 cursor-pointer rounded-lg border bg-black"
+                        disabled={isLoading}
                     >
-                        Create
+                        {isLoading ? "Creating..." : "Create"}
                     </button>
                 </div>
             </form>
