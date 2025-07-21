@@ -1,25 +1,63 @@
-import React, { useState } from "react";
-import DragnDrop from "../../lib/DragnDrop";
-import { useNavigate } from "react-router";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaPlus } from "react-icons/fa";
+import { useLocation, useNavigate } from "react-router";
+import DragnDrop from "../../lib/DragnDrop";
+import { useUpdateTeamMemterMutation } from "../../Redux/features/team/teamApi";
 
 const TeamEdit = () => {
     const navigate = useNavigate();
+    const { state } = useLocation();
+    const [preview, setPreview] = useState(null);
 
     const [teamData, setTeamData] = useState({
-        name: "",
-        title: "",
-        desc: "",
-        img: "",
+        name: state.name,
+        title: state.title,
+        description: state.description,
+        avatar: state.avatar,
     });
+
+    const [avatar, setAvatar] = useState(null);
+
+    const [updateTeamMemter, { isLoading }] = useUpdateTeamMemterMutation();
 
     const handleChange = (e) => {
         setTeamData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(teamData);
+
+        const memberData = {
+            name: teamData.name,
+            title: teamData.title,
+            description: teamData.description,
+            removeAvatar:
+                avatar instanceof File
+                    ? !preview || !preview?.file
+                        ? true
+                        : false
+                    : !preview
+                    ? true
+                    : false,
+            // avatarFile: avatar instanceof File ? avatar : null,
+        };
+
+        console.log("Preview file: ", preview, typeof preview);
+
+        try {
+            await updateTeamMemter({
+                memberData,
+                avatarFile: preview ? avatar : null,
+                id: state.id,
+            });
+
+            navigate("/team");
+            toast.success("Team Member updated Successfully");
+        } catch (error) {
+            console.error(error);
+            toast.error("Something went wrong!");
+        }
     };
 
     return (
@@ -35,7 +73,7 @@ const TeamEdit = () => {
                 </div>
             </div>
 
-            <form className="mt-5" onSubmit={handleSubmit}>
+            <div className="mt-5">
                 <div className="flex flex-col space-y-4">
                     <input
                         value={teamData.name}
@@ -54,14 +92,19 @@ const TeamEdit = () => {
                         className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
                     />
                     <textarea
-                        value={teamData.desc}
-                        name="desc"
+                        value={teamData.description}
+                        name="description"
                         onChange={handleChange}
                         placeholder="Enter Description..."
                         className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
                     ></textarea>
                 </div>
-                <DragnDrop />
+                <DragnDrop
+                    initialAvatar={teamData?.avatar}
+                    setAvatar={setAvatar}
+                    setPreview={setPreview}
+                    preview={preview}
+                />
 
                 <div className="mt-5 flex gap-2 justify-between">
                     <button
@@ -72,13 +115,15 @@ const TeamEdit = () => {
                         Cancel
                     </button>
                     <button
+                        onClick={handleSubmit}
                         type="submit"
-                        className="py-2 px-4 hover:bg-primary text-white duration-300 cursor-pointer rounded-lg border bg-black"
+                        className="py-2 px-4 hover:bg-primary text-white duration-300 cursor-pointer rounded-lg border bg-black disabled:bg-orange-300"
+                        disabled={isLoading}
                     >
-                        Update
+                        {isLoading ? "Updating..." : "Update"}
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
     );
 };

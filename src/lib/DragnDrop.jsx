@@ -2,9 +2,14 @@ import { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FaTimes } from "react-icons/fa";
 
-function DragnDrop({ setAvatar, className }) {
-    const [preview, setPreview] = useState(null);
-    // console.log(preview);
+function DragnDrop({
+    setAvatar,
+    className,
+    initialAvatar,
+    preview,
+    setPreview,
+}) {
+    const [removed, setRemoved] = useState(false);
 
     // const fileReader =
 
@@ -18,17 +23,24 @@ function DragnDrop({ setAvatar, className }) {
             if (file) {
                 const previewUrl = URL.createObjectURL(file);
                 setPreview({ file, url: previewUrl });
-
-                // Set avatar in parent
                 setAvatar(file);
+                setRemoved(false);
             }
         },
     });
 
+    useEffect(() => {
+        if (initialAvatar && !preview && !removed) {
+            setPreview({ file: null, url: initialAvatar });
+        }
+    }, [initialAvatar, preview, removed]);
+
     // Cleanup preview on unmount or when image is removed
     useEffect(() => {
         return () => {
-            if (preview?.url) URL.revokeObjectURL(preview.url);
+            if (preview?.file && preview?.url) {
+                URL.revokeObjectURL(preview.url);
+            }
         };
     }, [preview]);
 
@@ -36,6 +48,7 @@ function DragnDrop({ setAvatar, className }) {
         if (preview?.url) URL.revokeObjectURL(preview.url);
         setPreview(null);
         setAvatar(null); // remove from parent too
+        setRemoved(true);
     };
 
     return (

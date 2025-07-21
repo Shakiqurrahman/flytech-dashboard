@@ -13,7 +13,6 @@ const TeamPage = () => {
     const { data, isLoading } = useGetTeamMembersQuery();
     const [deleteTeamMember, { isLoading: isDeleting }] =
         useDeleteTeamMemberMutation();
-    console.log(data);
 
     const handleDelete = async (id) => {
         await deleteTeamMember(id);
@@ -52,6 +51,7 @@ const TeamPage = () => {
                             <div className="absolute right-[12px] top-[12px] flex flex-col gap-2 translate-x-[150%] group-hover:translate-x-0 duration-300">
                                 <Link
                                     to="edit"
+                                    state={v}
                                     className="hover:bg-primary border border-primary hover:text-white p-2 rounded-lg"
                                 >
                                     <FiEdit3 className="size-4" />

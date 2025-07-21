@@ -34,6 +34,25 @@ export const teamApiSlice = createApi({
             }),
             invalidatesTags: ["Team"],
         }),
+        updateTeamMemter: builder.mutation({
+            query: ({ memberData, avatarFile, id }) => {
+                // const updatedData = !avatarFile
+                //     ? { ...memberData, removeAvatar: true }
+                //     : memberData;
+                const formData = new FormData();
+                formData.append("data", JSON.stringify(memberData));
+                if (avatarFile) {
+                    formData.append("avatar", avatarFile);
+                }
+
+                return {
+                    url: `/about/team-members/${id}`,
+                    method: "PUT",
+                    body: formData,
+                };
+            },
+            invalidatesTags: ["Team"],
+        }),
     }),
 });
 
@@ -41,4 +60,5 @@ export const {
     useGetTeamMembersQuery,
     useCreateTeamMemberMutation,
     useDeleteTeamMemberMutation,
+    useUpdateTeamMemterMutation,
 } = teamApiSlice;
