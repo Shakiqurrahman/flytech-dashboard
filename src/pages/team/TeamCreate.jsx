@@ -6,6 +6,7 @@ import { useCreateTeamMemberMutation } from "../../Redux/features/team/teamApi";
 
 const TeamCreate = () => {
     const navigate = useNavigate();
+    const [preview, setPreview] = useState(null);
 
     const [teamData, setTeamData] = useState({
         name: "",
@@ -82,7 +83,11 @@ const TeamCreate = () => {
                         className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
                     ></textarea>
                 </div>
-                <DragnDrop setAvatar={setAvatar} />
+                <DragnDrop
+                    setAvatar={setAvatar}
+                    preview={preview}
+                    setPreview={setPreview}
+                />
 
                 <div className="mt-5 flex gap-2 justify-between">
                     <button

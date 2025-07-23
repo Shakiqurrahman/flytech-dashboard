@@ -1,7 +1,15 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import DragnDrop from "../../lib/DragnDrop";
+import { useGetAboutContentQuery } from "../../Redux/features/about/aboutApi";
 
 const AboutPage = () => {
+    const { data: aboutData } = useGetAboutContentQuery();
+    console.log(aboutData);
+
+    const [hasInitialized, setHasInitialized] = useState(false);
+    const [missionPreview, setMissionPreview] = useState(null);
+    const [visionPreview, setVisionPreview] = useState(null);
+
     const [aboutContent, setAboutContent] = useState({
         heading: "",
         mission: {
@@ -15,6 +23,25 @@ const AboutPage = () => {
             img: "",
         },
     });
+
+    useEffect(() => {
+        if (aboutData && !hasInitialized) {
+            setAboutContent({
+                heading: aboutData.bio || "",
+                mission: {
+                    title: aboutData.mission?.title || "",
+                    desc: aboutData.mission?.description || "",
+                    img: aboutData.mission?.thumbnail || "",
+                },
+                vision: {
+                    title: aboutData.vision?.title || "",
+                    desc: aboutData.vision?.description || "",
+                    img: aboutData.vision?.thumbnail || "",
+                },
+            });
+            setHasInitialized(true); // ✅ prevent future updates
+        }
+    }, [aboutData, hasInitialized]);
 
     const handleChange = (e, section = null) => {
         const { name, value } = e.target;
@@ -71,7 +98,12 @@ const AboutPage = () => {
                     ></textarea>
                 </div>
 
-                <DragnDrop setAboutContent={setAboutContent} />
+                <DragnDrop
+                    preview={missionPreview}
+                    setPreview={setMissionPreview}
+                    variant={"thumbnail"}
+                    initialAvatar={aboutContent.mission.img}
+                />
             </div>
             <div className="mt-8">
                 <h3 className="text-2xl font-medium mb-5">Vision Section</h3>
@@ -94,7 +126,12 @@ const AboutPage = () => {
                     ></textarea>
                 </div>
 
-                <DragnDrop />
+                <DragnDrop
+                    preview={visionPreview}
+                    setPreview={setVisionPreview}
+                    variant={"thumbnail"}
+                    initialAvatar={aboutContent.vision.img}
+                />
             </div>
 
             <div className="mt-5 flex gap-2 justify-between">

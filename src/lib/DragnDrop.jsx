@@ -8,6 +8,7 @@ function DragnDrop({
     initialAvatar,
     preview,
     setPreview,
+    variant,
 }) {
     const [removed, setRemoved] = useState(false);
 
@@ -68,7 +69,13 @@ function DragnDrop({
                     </p>
                 </div>
             ) : (
-                <div className="relative mt-4 w-64 h-64 rounded overflow-hidden border shadow">
+                <div
+                    className={`relative mt-4  ${
+                        variant === "thumbnail"
+                            ? "w-[40%] h-auto object-contain"
+                            : "w-64 h-64"
+                    } rounded overflow-hidden`}
+                >
                     <img
                         src={preview.url}
                         alt="Preview"
@@ -76,7 +83,7 @@ function DragnDrop({
                     />
                     <button
                         onClick={removeImage}
-                        className="absolute top-2 right-2 bg-black bg-opacity-60 hover:bg-opacity-80 text-white p-2 rounded-full"
+                        className="absolute top-2 right-2 bg-black bg-opacity-60 hover:bg-opacity-80 text-white p-2 rounded-full cursor-pointer"
                     >
                         <FaTimes />
                     </button>

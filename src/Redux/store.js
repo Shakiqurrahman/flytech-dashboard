@@ -11,6 +11,7 @@ import {
 import persistReducer from "redux-persist/es/persistReducer";
 import storage from "redux-persist/lib/storage";
 import { apiSlice } from "./api/apiSlice";
+import { aboutApiSlice } from "./features/about/aboutApi";
 import authReducer from "./features/auth/authSlice";
 import { teamApiSlice } from "./features/team/teamApi";
 
@@ -28,6 +29,7 @@ export const store = configureStore({
     reducer: {
         [apiSlice.reducerPath]: apiSlice.reducer,
         [teamApiSlice.reducerPath]: teamApiSlice.reducer,
+        [aboutApiSlice.reducerPath]: aboutApiSlice.reducer,
         auth: persistedAuthReducer,
     },
 
@@ -43,7 +45,11 @@ export const store = configureStore({
                     REGISTER,
                 ],
             },
-        }).concat(apiSlice.middleware, teamApiSlice.middleware),
+        }).concat(
+            apiSlice.middleware,
+            teamApiSlice.middleware,
+            aboutApiSlice.middleware
+        ),
     devTools: true,
 });
 
