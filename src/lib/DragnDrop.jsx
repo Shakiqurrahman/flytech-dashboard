@@ -34,7 +34,7 @@ function DragnDrop({
         if (initialAvatar && !preview && !removed) {
             setPreview({ file: null, url: initialAvatar });
         }
-    }, [initialAvatar, preview, removed]);
+    }, [initialAvatar, preview, removed, setPreview]);
 
     // Cleanup preview on unmount or when image is removed
     useEffect(() => {

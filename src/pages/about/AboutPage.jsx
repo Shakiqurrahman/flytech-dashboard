@@ -1,42 +1,46 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import DragnDrop from "../../lib/DragnDrop";
-import { useGetAboutContentQuery } from "../../Redux/features/about/aboutApi";
+import {
+    useCreateAboutContentMutation,
+    useGetAboutContentQuery,
+} from "../../Redux/features/about/aboutApi";
 
 const AboutPage = () => {
     const { data: aboutData } = useGetAboutContentQuery();
-    console.log(aboutData);
+    const [createAboutContent, { isLoading }] = useCreateAboutContentMutation();
 
     const [hasInitialized, setHasInitialized] = useState(false);
     const [missionPreview, setMissionPreview] = useState(null);
+    const [missionAvatar, setMissionAvatar] = useState(null);
     const [visionPreview, setVisionPreview] = useState(null);
+    const [visionAvatar, setVisionAvatar] = useState(null);
 
     const [aboutContent, setAboutContent] = useState({
-        heading: "",
+        bio: "",
         mission: {
             title: "",
-            desc: "",
-            img: "",
+            description: "",
         },
         vision: {
             title: "",
-            desc: "",
+            description: "",
             img: "",
         },
     });
+    console.log(missionAvatar, visionAvatar);
 
     useEffect(() => {
         if (aboutData && !hasInitialized) {
             setAboutContent({
-                heading: aboutData.bio || "",
+                bio: aboutData.bio || "",
                 mission: {
                     title: aboutData.mission?.title || "",
-                    desc: aboutData.mission?.description || "",
-                    img: aboutData.mission?.thumbnail || "",
+                    description: aboutData.mission?.description || "",
                 },
                 vision: {
                     title: aboutData.vision?.title || "",
-                    desc: aboutData.vision?.description || "",
-                    img: aboutData.vision?.thumbnail || "",
+                    description: aboutData.vision?.description || "",
                 },
             });
             setHasInitialized(true); // ✅ prevent future updates
@@ -56,21 +60,34 @@ const AboutPage = () => {
                 },
             }));
         }
-
-        console.log(value);
     };
 
-    const handleSubmit = () => {
-        console.log(aboutContent);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            if (missionAvatar && visionAvatar) {
+                await createAboutContent({
+                    aboutData: aboutContent,
+                    missionThumbnail: missionAvatar,
+                    visionThumbnail: visionAvatar,
+                });
+            } else {
+                toast.error("Upload Thumbnail!");
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
+
     return (
         <div>
             <div>
                 <h1 className="text-2xl font-medium my-4">Main Heading</h1>
 
                 <textarea
-                    name="heading"
-                    value={aboutContent.heading}
+                    name="bio"
+                    value={aboutContent.bio}
                     onChange={(e) => handleChange(e)}
                     placeholder="Enter text..."
                     className="w-full outline-0 border border-gray-300 p-2 px-4 rounded-lg min-h-[150px]"
@@ -90,9 +107,9 @@ const AboutPage = () => {
                         className="px-4 py-2 outline-0 border border-gray-300 rounded-lg"
                     />
                     <textarea
-                        name="desc"
+                        name="description"
                         onChange={(e) => handleChange(e, "mission")}
-                        value={aboutContent.mission.desc}
+                        value={aboutContent.mission.description}
                         placeholder="Enter description..."
                         className="px-4 py-2 outline-0 border border-gray-300 rounded-lg min-h-[150px]"
                     ></textarea>
@@ -101,6 +118,8 @@ const AboutPage = () => {
                 <DragnDrop
                     preview={missionPreview}
                     setPreview={setMissionPreview}
+                    avatar={missionAvatar}
+                    setAvatar={setMissionAvatar}
                     variant={"thumbnail"}
                     initialAvatar={aboutContent.mission.img}
                 />
@@ -118,9 +137,9 @@ const AboutPage = () => {
                         className="px-4 py-2 outline-0 border border-gray-300 rounded-lg"
                     />
                     <textarea
-                        name="desc"
+                        name="description"
                         onChange={(e) => handleChange(e, "vision")}
-                        value={aboutContent.vision.desc}
+                        value={aboutContent.vision.description}
                         placeholder="Enter description..."
                         className="px-4 py-2 outline-0 border border-gray-300 rounded-lg min-h-[150px]"
                     ></textarea>
@@ -129,6 +148,8 @@ const AboutPage = () => {
                 <DragnDrop
                     preview={visionPreview}
                     setPreview={setVisionPreview}
+                    avatar={visionAvatar}
+                    setAvatar={setVisionAvatar}
                     variant={"thumbnail"}
                     initialAvatar={aboutContent.vision.img}
                 />
@@ -137,16 +158,17 @@ const AboutPage = () => {
             <div className="mt-5 flex gap-2 justify-between">
                 <button
                     type="button"
-                    className="py-2 px-4 hover:bg-black bg-[#ebebeb] hover:text-white duration-300 cursor-pointer rounded-lg text-black "
+                    className="py-2 px-4 hover:bg-black bg-[#ebebeb] hover:text-white duration-300 cursor-pointer rounded-lg text-black"
                 >
                     Cancel
                 </button>
                 <button
                     type="submit"
-                    className="py-2 px-4 hover:bg-primary text-white duration-300 cursor-pointer rounded-lg border bg-black"
+                    className="py-2 px-4 hover:bg-primary disabled:bg-orange-400 text-white duration-300 cursor-pointer rounded-lg border bg-black"
                     onClick={handleSubmit}
+                    disabled={isLoading}
                 >
-                    update
+                    {isLoading ? "Updating..." : "Update"}
                 </button>
             </div>
         </div>
