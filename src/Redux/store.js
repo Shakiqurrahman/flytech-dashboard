@@ -14,6 +14,7 @@ import { apiSlice } from "./api/apiSlice";
 import { aboutApiSlice } from "./features/about/aboutApi";
 import authReducer from "./features/auth/authSlice";
 import { teamApiSlice } from "./features/team/teamApi";
+import { testimonialApiSlice } from "./features/testimonials/testimonialApi";
 
 const createPersistConfig = (key) => ({
     key,
@@ -30,6 +31,7 @@ export const store = configureStore({
         [apiSlice.reducerPath]: apiSlice.reducer,
         [teamApiSlice.reducerPath]: teamApiSlice.reducer,
         [aboutApiSlice.reducerPath]: aboutApiSlice.reducer,
+        [testimonialApiSlice.reducerPath]: testimonialApiSlice.reducer,
         auth: persistedAuthReducer,
     },
 
@@ -48,7 +50,8 @@ export const store = configureStore({
         }).concat(
             apiSlice.middleware,
             teamApiSlice.middleware,
-            aboutApiSlice.middleware
+            aboutApiSlice.middleware,
+            testimonialApiSlice.middleware
         ),
     devTools: true,
 });

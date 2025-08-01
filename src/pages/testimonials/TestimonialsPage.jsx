@@ -1,49 +1,56 @@
-import React, { useState } from "react";
-import achievement from "../../assets/images/achivement.webp";
-import { Link } from "react-router";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
 import { FaPlus } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
 import { GoTrash } from "react-icons/go";
+import { Link } from "react-router";
+import {
+    useDeleteTestimonialMutation,
+    useGetTestimonialQuery,
+} from "../../Redux/features/testimonials/testimonialApi";
 
 const TestimonialsPage = () => {
-    const [data, setData] = useState([
-        {
-            id: 1,
-            thumbnail: achievement,
-            title: "Flytech IT – CSE Industrial Training Achievement",
-            desc: "At Flytech IT, our CSE Industrial Training program has successfully empowered hundreds of Computer Science students with hands-on industry experience. Over the course of our training sessions, participants have worked on real-world projects in web development, app development, ",
-        },
-        {
-            id: 2,
-            thumbnail: achievement,
-            title: "Flytech IT – CSE Industrial Training Achievement",
-            desc: "At Flytech IT, our CSE Industrial Training program has successfully empowered hundreds of Computer Science students with hands-on industry experience. Over the course of our training sessions, participants have worked on real-world projects in web development, app development, ",
-        },
-        {
-            id: 3,
-            thumbnail: achievement,
-            title: "Flytech IT – CSE Industrial Training Achievement",
-            desc: "At Flytech IT, our CSE Industrial Training program has successfully empowered hundreds of Computer Science students with hands-on industry experience. Over the course of our training sessions, participants have worked on real-world projects in web development, app development, ",
-        },
-        {
-            id: 4,
-            thumbnail: achievement,
-            title: "Flytech IT – CSE Industrial Training Achievement",
-            desc: "At Flytech IT, our CSE Industrial Training program has successfully empowered hundreds of Computer Science students with hands-on industry experience. Over the course of our training sessions, participants have worked on real-world projects in web development, app development, ",
-        },
-        {
-            id: 5,
-            thumbnail: achievement,
-            title: "Flytech IT – CSE Industrial Training Achievement",
-            desc: "At Flytech IT, our CSE Industrial Training program has successfully empowered hundreds of Computer Science students with hands-on industry experience. Over the course of our training sessions, participants have worked on real-world projects in web development, app development, ",
-        },
-        {
-            id: 6,
-            thumbnail: achievement,
-            title: "Flytech IT – CSE Industrial Training Achievement",
-            desc: "At Flytech IT, our CSE Industrial Training program has successfully empowered hundreds of Computer Science students with hands-on industry experience. Over the course of our training sessions, participants have worked on real-world projects in web development, app development, ",
-        },
-    ]);
+    const { data: testimonialData, isLoading } = useGetTestimonialQuery();
+    const [deleteTestimonial, { isLoading: deleting }] =
+        useDeleteTestimonialMutation();
+
+    // const [data, setData] = useState([
+    //     {
+    //         id: 1,
+    //         thumbnail: achievement,
+    //         title: "Flytech IT – CSE Industrial Training Achievement",
+    //         desc: "At Flytech IT, our CSE Industrial Training program has successfully empowered hundreds of Computer Science students with hands-on industry experience. Over the course of our training sessions, participants have worked on real-world projects in web development, app development, ",
+    //     },
+    //     {
+    //         id: 2,
+    //         thumbnail: achievement,
+    //         title: "Flytech IT – CSE Industrial Training Achievement",
+    //         desc: "At Flytech IT, our CSE Industrial Training program has successfully empowered hundreds of Computer Science students with hands-on industry experience. Over the course of our training sessions, participants have worked on real-world projects in web development, app development, ",
+    //     },
+    //     {
+    //         id: 3,
+    //         thumbnail: achievement,
+    //         title: "Flytech IT – CSE Industrial Training Achievement",
+    //         desc: "At Flytech IT, our CSE Industrial Training program has successfully empowered hundreds of Computer Science students with hands-on industry experience. Over the course of our training sessions, participants have worked on real-world projects in web development, app development, ",
+    //     },
+    //     {
+    //         id: 4,
+    //         thumbnail: achievement,
+    //         title: "Flytech IT – CSE Industrial Training Achievement",
+    //         desc: "At Flytech IT, our CSE Industrial Training program has successfully empowered hundreds of Computer Science students with hands-on industry experience. Over the course of our training sessions, participants have worked on real-world projects in web development, app development, ",
+    //     },
+    //     {
+    //         id: 5,
+    //         thumbnail: achievement,
+    //         title: "Flytech IT – CSE Industrial Training Achievement",
+    //         desc: "At Flytech IT, our CSE Industrial Training program has successfully empowered hundreds of Computer Science students with hands-on industry experience. Over the course of our training sessions, participants have worked on real-world projects in web development, app development, ",
+    //     },
+    //     {
+    //         id: 6,
+    //         thumbnail: achievement,
+    //         title: "Flytech IT – CSE Industrial Training Achievement",
+    //         desc: "At Flytech IT, our CSE Industrial Training program has successfully empowered hundreds of Computer Science students with hands-on industry experience. Over the course of our training sessions, participants have worked on real-world projects in web development, app development, ",
+    //     },
+    // ]);
     return (
         <div>
             <div className="flex items-center justify-between">
@@ -63,38 +70,52 @@ const TestimonialsPage = () => {
                 </div>
             </div>
             <div className="grid grid-cols-4 gap-4 pt-10">
-                {data.map((v, i) => (
-                    <div
-                        className="flex items-center flex-col bg-white rounded-md p-4 border border-primary cursor-pointer relative  overflow-hidden group"
-                        key={i}
-                    >
-                        <div className="absolute right-[12px] top-[12px] flex flex-col gap-2 translate-x-[150%] group-hover:translate-x-0 duration-300">
-                            <Link
-                                to="edit"
-                                className="hover:bg-primary border border-primary bg-gray-300 hover:text-white p-2 rounded-lg"
-                            >
-                                <FiEdit3 className="size-4" />
-                            </Link>
-                            <button className="hover:bg-primary border border-primary bg-gray-300 hover:text-white p-2 rounded-lg cursor-pointer">
-                                <GoTrash className="size-4" />
-                            </button>
-                        </div>
-                        <img
-                            src={v.thumbnail}
-                            alt=""
-                            className="w-full object-contain rounded-lg cursor-pointer"
-                        />
-                        <h3
-                            className="font-semibold mt-4 line-clamp-1"
-                            title={v.title}
+                {isLoading ? (
+                    <p className="text-gray-500 text-lg col-span-4 text-center mt-5">
+                        Loading...
+                    </p>
+                ) : (
+                    testimonialData?.data?.map((v, i) => (
+                        <div
+                            className="flex items-center flex-col bg-white rounded-md p-4 border border-primary cursor-pointer relative  overflow-hidden group"
+                            key={i}
                         >
-                            {v.title}
-                        </h3>
-                        <p className="mt-1 text-xs text-gray-500 line-clamp-2">
-                            {v.desc}
-                        </p>
-                    </div>
-                ))}
+                            <div className="absolute right-[12px] top-[12px] flex flex-col gap-2 translate-x-[150%] group-hover:translate-x-0 duration-300">
+                                <Link
+                                    to="edit"
+                                    state={v}
+                                    className="hover:bg-primary border border-primary bg-gray-300 hover:text-white p-2 rounded-lg"
+                                >
+                                    <FiEdit3 className="size-4" />
+                                </Link>
+                                <button
+                                    className="hover:bg-primary border border-primary bg-gray-300 hover:text-white p-2 rounded-lg cursor-pointer"
+                                    onClick={() => deleteTestimonial(v.id)}
+                                >
+                                    {deleting ? (
+                                        <CgSpinnerTwoAlt className="size-4 animate-spin duration-300" />
+                                    ) : (
+                                        <GoTrash className="size-4" />
+                                    )}
+                                </button>
+                            </div>
+                            <img
+                                src={v.thumbnail}
+                                alt=""
+                                className="w-full object-contain rounded-lg cursor-pointer"
+                            />
+                            <h3
+                                className="font-semibold mt-4 line-clamp-1"
+                                title={v.name}
+                            >
+                                {v.name}
+                            </h3>
+                            <p className="mt-1 text-xs text-gray-500 line-clamp-2">
+                                {v.description}
+                            </p>
+                        </div>
+                    ))
+                )}
             </div>
         </div>
     );
