@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage";
 import { apiSlice } from "./api/apiSlice";
 import { aboutApiSlice } from "./features/about/aboutApi";
 import authReducer from "./features/auth/authSlice";
+import { reviewApiSlice } from "./features/reviews/reviewApi";
 import { teamApiSlice } from "./features/team/teamApi";
 import { testimonialApiSlice } from "./features/testimonials/testimonialApi";
 
@@ -32,6 +33,8 @@ export const store = configureStore({
         [teamApiSlice.reducerPath]: teamApiSlice.reducer,
         [aboutApiSlice.reducerPath]: aboutApiSlice.reducer,
         [testimonialApiSlice.reducerPath]: testimonialApiSlice.reducer,
+        [reviewApiSlice.reducerPath]: reviewApiSlice.reducer,
+
         auth: persistedAuthReducer,
     },
 
@@ -51,7 +54,8 @@ export const store = configureStore({
             apiSlice.middleware,
             teamApiSlice.middleware,
             aboutApiSlice.middleware,
-            testimonialApiSlice.middleware
+            testimonialApiSlice.middleware,
+            reviewApiSlice.middleware
         ),
     devTools: true,
 });

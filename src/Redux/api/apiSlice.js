@@ -54,6 +54,6 @@ export const apiSlice = createApi({
     baseQuery: baseQueryWithRefreshToken,
     keepUnusedDataFor: 60,
     refetchOnMountOrArgChanges: true,
-    tagTypes: ["user", "Main_Faq", "Testimonial"],
+    tagTypes: ["user", "Main_Faq", "Testimonial", "Reviews"],
     endpoints: () => ({}),
 });

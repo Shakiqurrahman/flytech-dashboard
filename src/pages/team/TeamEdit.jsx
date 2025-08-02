@@ -9,6 +9,7 @@ const TeamEdit = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
     const [preview, setPreview] = useState(null);
+    const [avatar, setAvatar] = useState(null);
 
     const [teamData, setTeamData] = useState({
         name: state.name,
@@ -16,8 +17,6 @@ const TeamEdit = () => {
         description: state.description,
         avatar: state.avatar,
     });
-
-    const [avatar, setAvatar] = useState(null);
 
     const [updateTeamMemter, { isLoading }] = useUpdateTeamMemterMutation();
 

@@ -1,28 +1,58 @@
-import React, { useState } from "react";
-import DragnDrop from "../../lib/DragnDrop";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
-import { FaPlus } from "react-icons/fa";
+import DragnDrop from "../../lib/DragnDrop";
+import { useUpdateReviewMutation } from "../../Redux/features/reviews/reviewApi";
 
 const ReviewEdit = () => {
     const navigate = useNavigate();
-    const { state } = useLocation();
+    const [updateReview, { isLoading }] = useUpdateReviewMutation();
 
-    const [data, setData] = useState(
-        state || {
-            name: "",
-            title: "",
-            desck: "",
-            img: "",
-        }
-    );
+    const { state } = useLocation();
+    const [preview, setPreview] = useState(null);
+    const [avatar, setAvatar] = useState(null);
+
+    const [data, setData] = useState({
+        name: state.name || "",
+        description: state.description || "",
+        avatar: state.thumbnail || "",
+    });
 
     const handleChange = (e) => {
         setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(setData);
+
+        const memberData = {
+            name: data.name,
+            description: data.description,
+            removeAvatar:
+                avatar instanceof File
+                    ? !preview || !preview?.file
+                        ? true
+                        : false
+                    : !preview
+                    ? true
+                    : false,
+        };
+
+        console.log("Preview file: ", preview, typeof preview);
+
+        try {
+            await updateReview({
+                data: memberData,
+                avatarFile: preview ? avatar : null,
+                id: state.id,
+            });
+
+            navigate("/reviews");
+            toast.success("Review updated Successfully");
+        } catch (error) {
+            console.error(error);
+            toast.error("Something went wrong!");
+        }
     };
 
     return (
@@ -33,7 +63,7 @@ const ReviewEdit = () => {
                 </div>
             </div>
 
-            <form className="mt-5" onSubmit={handleSubmit}>
+            <div className="mt-5">
                 <div className="flex flex-col space-y-4">
                     <input
                         value={data.name}
@@ -44,14 +74,19 @@ const ReviewEdit = () => {
                         className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
                     />
                     <textarea
-                        value={data.desck}
-                        name="desck"
+                        value={data.description}
+                        name="description"
                         onChange={handleChange}
                         placeholder="Enter Description..."
                         className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
                     ></textarea>
                 </div>
-                <DragnDrop />
+                <DragnDrop
+                    initialAvatar={data?.avatar}
+                    setAvatar={setAvatar}
+                    setPreview={setPreview}
+                    preview={preview}
+                />
 
                 <div className="mt-5 flex gap-2 justify-between">
                     <button
@@ -62,13 +97,15 @@ const ReviewEdit = () => {
                         Cancel
                     </button>
                     <button
+                        onClick={handleSubmit}
                         type="submit"
-                        className="py-2 px-4 hover:bg-primary text-white duration-300 cursor-pointer rounded-lg border bg-black"
+                        className="py-2 px-4 hover:bg-primary text-white duration-300 cursor-pointer rounded-lg border bg-black disabled:bg-orange-400 disabled:cursor-not-allowed"
+                        disabled={isLoading}
                     >
-                        Update
+                        {isLoading ? "Updating..." : "Update"}
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
     );
 };

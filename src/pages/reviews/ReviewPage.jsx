@@ -1,53 +1,56 @@
-import React, { useState } from "react";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
 import { FaPlus } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
 import { GoTrash } from "react-icons/go";
 import { Link } from "react-router";
-import img1 from "../../../public/images/ceo.webp";
-import img2 from "../../../public/images/coo.webp";
-import img3 from "../../../public/images/cto.webp";
+import {
+    useDeleteReviewMutation,
+    useGetReviewQuery,
+} from "../../Redux/features/reviews/reviewApi";
 
 const ReviewPage = () => {
-    const data = [
-        {
-            name: "Rare Al Samir",
-            position: "Founder & CEO",
-            desck: "Ex-Bangladesh Army, 3 years of Offline Education Business Experience, 5 years of Teaching Experience Finance Graduate",
-            img: img1,
-        },
-        {
-            name: "Jamila Bupasha Khushbu",
-            position: "Co-Founder & COO",
-            desck: "Economics Post Graduate, Ex-BYLC Graduate, 6 years of Experience in Education Sector, Mentored 5000+ students at s@ifurs & two other educational institution, Lead an NGO for 4 years as an Operation Lead",
-            img: img2,
-        },
-        {
-            name: "Tanveer Hossain Munim",
-            position: "CTO",
-            desck: "Software Engineer, 5 years of Teaching Experience to 50,000+ Students",
-            img: img3,
-        },
-        {
-            name: "Rare Al Samir",
-            position: "Founder & CEO",
-            desck: "Ex-Bangladesh Army, 3 years of Offline Education Business Experience, 5 years of Teaching Experience Finance Graduate",
-            img: img1,
-        },
-        {
-            name: "Jamila Bupasha Khushbu",
-            position: "Co-Founder & COO",
-            desck: "Economics Post Graduate, Ex-BYLC Graduate, 6 years of Experience in Education Sector, Mentored 5000+ students at s@ifurs & two other educational institution, Lead an NGO for 4 years as an Operation Lead",
-            img: img2,
-        },
-        {
-            name: "Tanveer Hossain Munim",
-            position: "CTO",
-            desck: "Software Engineer, 5 years of Teaching Experience to 50,000+ Students",
-            img: img3,
-        },
-    ];
+    const { data, isLoading } = useGetReviewQuery();
+    const [deleteReview, { isLoading: deleting }] = useDeleteReviewMutation();
 
-    const [teamData, setTeamData] = useState(data);
+    // const data = [
+    //     {
+    //         name: "Rare Al Samir",
+    //         position: "Founder & CEO",
+    //         desck: "Ex-Bangladesh Army, 3 years of Offline Education Business Experience, 5 years of Teaching Experience Finance Graduate",
+    //         img: img1,
+    //     },
+    //     {
+    //         name: "Jamila Bupasha Khushbu",
+    //         position: "Co-Founder & COO",
+    //         desck: "Economics Post Graduate, Ex-BYLC Graduate, 6 years of Experience in Education Sector, Mentored 5000+ students at s@ifurs & two other educational institution, Lead an NGO for 4 years as an Operation Lead",
+    //         img: img2,
+    //     },
+    //     {
+    //         name: "Tanveer Hossain Munim",
+    //         position: "CTO",
+    //         desck: "Software Engineer, 5 years of Teaching Experience to 50,000+ Students",
+    //         img: img3,
+    //     },
+    //     {
+    //         name: "Rare Al Samir",
+    //         position: "Founder & CEO",
+    //         desck: "Ex-Bangladesh Army, 3 years of Offline Education Business Experience, 5 years of Teaching Experience Finance Graduate",
+    //         img: img1,
+    //     },
+    //     {
+    //         name: "Jamila Bupasha Khushbu",
+    //         position: "Co-Founder & COO",
+    //         desck: "Economics Post Graduate, Ex-BYLC Graduate, 6 years of Experience in Education Sector, Mentored 5000+ students at s@ifurs & two other educational institution, Lead an NGO for 4 years as an Operation Lead",
+    //         img: img2,
+    //     },
+    //     {
+    //         name: "Tanveer Hossain Munim",
+    //         position: "CTO",
+    //         desck: "Software Engineer, 5 years of Teaching Experience to 50,000+ Students",
+    //         img: img3,
+    //     },
+    // ];
+
     return (
         <div>
             <div className="flex items-center justify-between">
@@ -65,34 +68,49 @@ const ReviewPage = () => {
                 </div>
             </div>
             <div className="grid grid-cols-3 gap-4 pt-10">
-                {teamData.map((v, i) => (
-                    <div
-                        className="bg-white rounded-md p-4 cursor-pointer relative  overflow-hidden group"
-                        key={i}
-                    >
-                        <div className="absolute right-[12px] top-[12px] flex flex-col gap-2 translate-x-[150%] group-hover:translate-x-0 duration-300">
-                            <Link
-                                to="edit"
-                                state={v}
-                                className="hover:bg-primary border border-primary hover:text-white p-2 rounded-lg"
-                            >
-                                <FiEdit3 className="size-4" />
-                            </Link>
-                            <button className="hover:bg-primary border border-primary hover:text-white p-2 rounded-lg cursor-pointer">
-                                <GoTrash className="size-4" />
-                            </button>
+                {isLoading ? (
+                    <p className="col-span-3 mt-10 text-gray-500 text-lg text-center">
+                        Loading...
+                    </p>
+                ) : (
+                    data?.data.map((v, i) => (
+                        <div
+                            className="bg-white rounded-md p-4 cursor-pointer relative  overflow-hidden group"
+                            key={i}
+                        >
+                            <div className="absolute right-[12px] top-[12px] flex flex-col gap-2 translate-x-[150%] group-hover:translate-x-0 duration-300">
+                                <Link
+                                    to="edit"
+                                    state={v}
+                                    className="hover:bg-primary border border-primary hover:text-white p-2 rounded-lg"
+                                >
+                                    <FiEdit3 className="size-4" />
+                                </Link>
+                                <button
+                                    className="hover:bg-primary border border-primary hover:text-white p-2 rounded-lg cursor-pointer"
+                                    onClick={() => deleteReview(v.id)}
+                                >
+                                    {deleting ? (
+                                        <CgSpinnerTwoAlt className="size-4 animate-spin duration-300" />
+                                    ) : (
+                                        <GoTrash className="size-4" />
+                                    )}
+                                </button>
+                            </div>
+                            <div className="flex gap-2 items-center">
+                                <img
+                                    src={v.thumbnail}
+                                    alt=""
+                                    className="size-10 object-contain rounded-full cursor-pointer"
+                                />
+                                <h3 className=" font-medium">{v.name}</h3>
+                            </div>
+                            <p className="mt-2 text-sm text-gray-500">
+                                {v.description}
+                            </p>
                         </div>
-                        <div className="flex gap-2 items-center">
-                            <img
-                                src={v.img}
-                                alt=""
-                                className="size-10 object-contain rounded-full cursor-pointer"
-                            />
-                            <h3 className=" font-medium">{v.name}</h3>
-                        </div>
-                        <p className="mt-2 text-sm text-gray-500">{v.desck}</p>
-                    </div>
-                ))}
+                    ))
+                )}
             </div>
         </div>
     );

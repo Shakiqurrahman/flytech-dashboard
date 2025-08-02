@@ -7,6 +7,7 @@ import { useCreateTeamMemberMutation } from "../../Redux/features/team/teamApi";
 const TeamCreate = () => {
     const navigate = useNavigate();
     const [preview, setPreview] = useState(null);
+    const [avatar, setAvatar] = useState(null);
 
     const [teamData, setTeamData] = useState({
         name: "",
@@ -14,9 +15,6 @@ const TeamCreate = () => {
         desc: "",
         img: "",
     });
-
-    const [avatar, setAvatar] = useState(null);
-    console.log(avatar);
 
     const [createTeamMember, { isLoading }] = useCreateTeamMemberMutation();
 

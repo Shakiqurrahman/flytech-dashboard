@@ -1,24 +1,44 @@
-import React, { useState } from "react";
-import DragnDrop from "../../lib/DragnDrop";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
-import { FaPlus } from "react-icons/fa";
+import DragnDrop from "../../lib/DragnDrop";
+import { useCreateReviewMutation } from "../../Redux/features/reviews/reviewApi";
 
 const ReviewCreate = () => {
+    const [createReview, { isLoading }] = useCreateReviewMutation();
     const navigate = useNavigate();
 
     const [data, setData] = useState({
         name: "",
-        desc: "",
-        img: "",
+        description: "",
     });
+    const [preview, setPreview] = useState(null);
+    const [avatar, setAvatar] = useState(null);
 
     const handleChange = (e) => {
         setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(data);
+
+        const memberData = {
+            name: data.name,
+            description: data.description,
+        };
+
+        try {
+            await createReview({
+                data: memberData,
+                avatarFile: avatar,
+            });
+
+            navigate("/reviews");
+            toast.success("Review created Successfully");
+        } catch (error) {
+            console.error(error);
+            toast.error("Something went wrong!");
+        }
     };
 
     return (
@@ -40,14 +60,18 @@ const ReviewCreate = () => {
                         className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
                     />
                     <textarea
-                        value={data.desc}
-                        name="desc"
+                        value={data.description}
+                        name="description"
                         onChange={handleChange}
                         placeholder="Enter Description..."
                         className="px-4 py-2 rounded-lg outline-0 border border-gray-300"
                     ></textarea>
                 </div>
-                <DragnDrop />
+                <DragnDrop
+                    setAvatar={setAvatar}
+                    preview={preview}
+                    setPreview={setPreview}
+                />
 
                 <div className="mt-5 flex gap-2 justify-between">
                     <button
@@ -59,9 +83,10 @@ const ReviewCreate = () => {
                     </button>
                     <button
                         type="submit"
-                        className="py-2 px-4 hover:bg-primary text-white duration-300 cursor-pointer rounded-lg border bg-black"
+                        className="py-2 px-4 hover:bg-primary text-white duration-300 cursor-pointer rounded-lg border bg-black disabled:bg-orange-400 disabled:cursor-not-allowed"
+                        disabled={isLoading}
                     >
-                        Create
+                        {isLoading ? "Creating..." : "Create"}
                     </button>
                 </div>
             </form>
